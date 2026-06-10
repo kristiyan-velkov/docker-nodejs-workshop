@@ -1,41 +1,52 @@
 import { render, screen } from "@testing-library/react";
-import { useState } from "react";
-import App from "./App";
-import { QuickStart } from "./components/QuickStart";
+import { MemoryRouter } from "react-router-dom";
+import { AuthGate } from "./components/AuthGate";
+import { AppRoutes } from "./App";
 
-function TestQuickStart() {
-  const [activeTab, setActiveTab] = useState<"tasks">("tasks");
-  return <QuickStart activeTab={activeTab} onTabChange={setActiveTab} />;
+function renderApp(initialRoute = "/") {
+  return render(
+    <MemoryRouter initialEntries={[initialRoute]}>
+      <AuthGate>
+        <AppRoutes />
+      </AuthGate>
+    </MemoryRouter>
+  );
 }
 
 describe("App Component", () => {
   it("renders without crashing", () => {
-    render(<App />);
-    const workshopTexts = screen.getAllByText(/Node.js Docker Workshop/i);
+    renderApp();
+    const workshopTexts = screen.getAllByText(/Docker/i);
     expect(workshopTexts.length).toBeGreaterThan(0);
   });
 
-  it("renders all major sections", () => {
-    render(<App />);
+  it("renders home page sections", () => {
+    renderApp();
 
     const congressTexts = screen.getAllByText(/Node.js Congress 2026/i);
     expect(congressTexts.length).toBeGreaterThan(0);
 
     expect(screen.getByText(/Workshop Learning Objectives/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/Workshop Materials/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Workshop sections/i)).toBeInTheDocument();
+    expect(screen.getByText(/Workshop prize challenge/i)).toBeInTheDocument();
     expect(screen.getAllByText(/Kristiyan Velkov/i).length).toBeGreaterThan(0);
   });
 
-  it("renders the main container with correct classes", () => {
-    const { container } = render(<App />);
-    const mainDiv = container.querySelector(".min-h-screen");
-    expect(mainDiv).toBeInTheDocument();
+  it("renders learn index page", () => {
+    renderApp("/learn");
+    expect(screen.getByText(/Docker Knowledge Base/i)).toBeInTheDocument();
+    expect(screen.getByText(/Docker Image/i)).toBeInTheDocument();
   });
-});
 
-describe("QuickStart with controlled tabs", () => {
-  it("renders workshop tasks tab", () => {
-    render(<TestQuickStart />);
+  it("renders tasks page", () => {
+    renderApp("/tasks");
+    expect(screen.getByRole("heading", { name: /Workshop Tasks/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Step-by-step tasks/i })).toBeInTheDocument();
+  });
+
+  it("renders commands reference page", () => {
+    renderApp("/learn/commands");
+    expect(screen.getByRole("heading", { name: /Commands Reference/i })).toBeInTheDocument();
+    expect(screen.getByText(/Image Commands/i)).toBeInTheDocument();
   });
 });

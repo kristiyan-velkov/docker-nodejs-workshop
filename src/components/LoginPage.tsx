@@ -23,7 +23,7 @@ export const LoginPage = () => {
 
   if (!configured) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 via-white to-indigo-50/30 px-4 py-16">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 via-white to-blue-50/30 px-4 py-16">
         <div className="dot-grid-slate pointer-events-none fixed inset-0 -z-10 opacity-40" />
         <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-xl shadow-slate-200/60">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100">
@@ -68,17 +68,17 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 via-white to-indigo-50/30 px-4 py-16">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 via-white to-blue-50/30 px-4 py-16">
       <div className="dot-grid-slate pointer-events-none fixed inset-0 -z-10 opacity-40" />
 
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 shadow-lg shadow-indigo-200">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-200">
             <Container className="h-7 w-7 text-white" strokeWidth={2} />
           </div>
           <div>
             <h1 className="text-2xl font-black tracking-tight text-slate-900">
-              Docker<span className="text-indigo-600">Workshop</span>
+              Docker<span className="text-blue-600">Workshop</span>
             </h1>
             <p className="mt-1 text-sm text-slate-500">
               {mode === "signin"
@@ -95,7 +95,7 @@ export const LoginPage = () => {
               onClick={() => setMode("signin")}
               className={`flex-1 rounded-lg py-2 text-sm font-semibold transition-colors ${
                 mode === "signin"
-                  ? "bg-white text-indigo-600 shadow-sm"
+                  ? "bg-white text-blue-600 shadow-sm"
                   : "text-slate-600"
               }`}
             >
@@ -106,7 +106,7 @@ export const LoginPage = () => {
               onClick={() => setMode("signup")}
               className={`flex-1 rounded-lg py-2 text-sm font-semibold transition-colors ${
                 mode === "signup"
-                  ? "bg-white text-indigo-600 shadow-sm"
+                  ? "bg-white text-blue-600 shadow-sm"
                   : "text-slate-600"
               }`}
             >

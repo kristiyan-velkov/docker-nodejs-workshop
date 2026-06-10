@@ -1,4 +1,5 @@
-import { ChevronDown, ChevronRight, Container, Box } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ChevronRight, Container, Box } from "lucide-react";
 import { SOCIAL_LINKS } from "../constants/data";
 
 export const Hero = () => {
@@ -6,8 +7,8 @@ export const Hero = () => {
     <header className="relative overflow-hidden bg-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="dot-grid absolute inset-0 opacity-[0.04]" />
-        <div className="absolute right-0 top-0 h-[600px] w-[600px] -translate-y-1/3 translate-x-1/4 rounded-full bg-indigo-100/80 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] translate-y-1/3 -translate-x-1/4 rounded-full bg-violet-100/60 blur-[100px]" />
+        <div className="absolute right-0 top-0 h-[600px] w-[600px] -translate-y-1/3 translate-x-1/4 rounded-full bg-blue-100/80 blur-[120px]" />
+        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] translate-y-1/3 -translate-x-1/4 rounded-full bg-sky-100/60 blur-[100px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
@@ -17,7 +18,7 @@ export const Hero = () => {
 
             <h1 className="text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl xl:text-7xl">
               Master{" "}
-              <span className="bg-linear-to-r from-indigo-500 via-indigo-600 to-violet-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-500 via-blue-600 to-sky-600 bg-clip-text text-transparent">
                 Docker
               </span>{" "}
               for Node.js
@@ -30,13 +31,13 @@ export const Hero = () => {
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
-              <a
-                href="#workshop-materials"
-                className="inline-flex items-center gap-2.5 rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white! no-underline shadow-lg shadow-indigo-200 transition-all hover:bg-indigo-700 hover:text-white! hover:shadow-indigo-300 hover:-translate-y-0.5"
+              <Link
+                to="/tasks"
+                className="inline-flex items-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3 text-base font-semibold text-white! no-underline shadow-lg shadow-blue-200 transition-all hover:bg-blue-700 hover:text-white! hover:shadow-blue-300 hover:-translate-y-0.5"
               >
                 Start workshop
-                <ChevronDown className="h-5 w-5 shrink-0" />
-              </a>
+                <ChevronRight className="h-5 w-5 shrink-0" />
+              </Link>
               <a
                 href={SOCIAL_LINKS.documentation}
                 target="_blank"
@@ -68,12 +69,12 @@ export const Hero = () => {
           </div>
 
           <div className="relative hidden lg:block">
-            <div className="absolute inset-0 -z-10 scale-90 rounded-3xl bg-indigo-100/60 blur-3xl" />
+            <div className="absolute inset-0 -z-10 scale-90 rounded-3xl bg-blue-100/60 blur-3xl" />
 
-            <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-linear-to-br from-slate-50 to-indigo-50/50 p-12 shadow-2xl shadow-slate-300/40 ring-1 ring-slate-200/60">
+            <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-linear-to-br from-slate-50 to-blue-50/50 p-12 shadow-2xl shadow-slate-300/40 ring-1 ring-slate-200/60">
               <div className="flex items-center justify-center gap-8">
                 <div
-                  className="flex h-28 w-28 items-center justify-center rounded-2xl bg-indigo-600 shadow-lg shadow-indigo-200"
+                  className="flex h-28 w-28 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-200"
                   aria-label="Node.js logo"
                 >
                   <Box className="h-14 w-14 text-white" strokeWidth={1.5} />
@@ -102,8 +103,8 @@ export const Hero = () => {
             </div>
 
             <div className="absolute -bottom-4 -right-4 flex items-center gap-2.5 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 shadow-lg shadow-slate-200/60">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100">
-                <Box className="h-4 w-4 text-indigo-600" />
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
+                <Box className="h-4 w-4 text-blue-600" />
               </span>
               <div>
                 <p className="text-xs font-bold text-slate-900">Compose Watch</p>

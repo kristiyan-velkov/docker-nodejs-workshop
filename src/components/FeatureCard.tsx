@@ -2,8 +2,8 @@ import type { Feature } from "../types";
 import { AppIcon } from "./ui/AppIcon";
 
 const ACCENT_COLORS = [
-  "bg-indigo-500",
-  "bg-violet-500",
+  "bg-blue-500",
+  "bg-sky-500",
   "bg-sky-500",
   "bg-emerald-500",
   "bg-amber-500",
@@ -11,8 +11,8 @@ const ACCENT_COLORS = [
 ];
 
 const ICON_BG = [
-  "bg-indigo-50 text-indigo-600 ring-indigo-100",
-  "bg-violet-50 text-violet-600 ring-violet-100",
+  "bg-blue-50 text-blue-600 ring-blue-100",
+  "bg-sky-50 text-sky-600 ring-sky-100",
   "bg-sky-50 text-sky-600 ring-sky-100",
   "bg-emerald-50 text-emerald-600 ring-emerald-100",
   "bg-amber-50 text-amber-600 ring-amber-100",

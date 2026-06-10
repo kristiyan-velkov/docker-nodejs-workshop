@@ -11,10 +11,10 @@ export const DockerConcepts = () => {
           key={index}
           className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
         >
-          <div className="h-1 bg-indigo-500" />
+          <div className="h-1 bg-blue-500" />
           <div className="flex flex-1 flex-col p-6">
             <div className="mb-4 flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
                 <AppIcon name={concept.icon} className="h-6 w-6" />
               </div>
               <h3 className="text-xl font-bold text-slate-900">
@@ -34,7 +34,7 @@ export const DockerConcepts = () => {
                 href={concept.docsLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center gap-2 self-start rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white no-underline shadow-md shadow-indigo-200 transition hover:bg-indigo-700"
+                className="mt-auto inline-flex items-center gap-2 self-start rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white no-underline shadow-md shadow-blue-200 transition hover:bg-blue-700"
               >
                 <BookOpen className="h-4 w-4" />
                 Learn more

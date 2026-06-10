@@ -4,6 +4,7 @@ export type LearnEntry = {
   slug: string;
   title: string;
   short: string;
+  tagline?: string;
   category: string;
   difficulty: LearnDifficulty;
   readTime: string;
@@ -20,20 +21,15 @@ export const LEARN_COLOR_MAP: Record<
   string,
   { accent: string; icon: string; ring: string }
 > = {
-  indigo: {
-    accent: "bg-indigo-500",
-    icon: "bg-indigo-50 text-indigo-600 ring-indigo-100",
-    ring: "ring-indigo-200",
+  blue: {
+    accent: "bg-blue-500",
+    icon: "bg-blue-50 text-blue-600 ring-blue-100",
+    ring: "ring-blue-200",
   },
   sky: {
     accent: "bg-sky-500",
     icon: "bg-sky-50 text-sky-600 ring-sky-100",
     ring: "ring-sky-200",
-  },
-  violet: {
-    accent: "bg-violet-500",
-    icon: "bg-violet-50 text-violet-600 ring-violet-100",
-    ring: "ring-violet-200",
   },
   emerald: {
     accent: "bg-emerald-500",
@@ -73,7 +69,7 @@ export const LEARN_ENTRIES: ReadonlyArray<LearnEntry> = [
     difficulty: "Beginner",
     readTime: "4 min",
     icon: "package",
-    color: "indigo",
+    color: "blue",
     summary:
       "A read-only blueprint that packages your app, runtime, and dependencies into a portable artifact you can run anywhere.",
     whatIsIt:
@@ -140,7 +136,7 @@ export const LEARN_ENTRIES: ReadonlyArray<LearnEntry> = [
     difficulty: "Beginner",
     readTime: "4 min",
     icon: "container",
-    color: "violet",
+    color: "sky",
     summary:
       "An isolated, running process created from an image — your app in a lightweight sandbox.",
     whatIsIt:
@@ -241,7 +237,7 @@ export const LEARN_ENTRIES: ReadonlyArray<LearnEntry> = [
     difficulty: "Intermediate",
     readTime: "6 min",
     icon: "layers",
-    color: "indigo",
+    color: "blue",
     summary:
       "Build in a fat stage, copy only compiled output to a minimal production image.",
     whatIsIt:
@@ -308,7 +304,7 @@ export const LEARN_ENTRIES: ReadonlyArray<LearnEntry> = [
     difficulty: "Advanced",
     readTime: "5 min",
     icon: "rocket",
-    color: "violet",
+    color: "sky",
     summary:
       "Run tests in Docker on every push, then build and push multi-arch images to Docker Hub.",
     whatIsIt:
@@ -335,3 +331,7 @@ export const LEARN_ENTRIES: ReadonlyArray<LearnEntry> = [
     ],
   },
 ];
+
+export const LEARN_BY_SLUG: Record<string, LearnEntry> = Object.fromEntries(
+  LEARN_ENTRIES.map((entry) => [entry.slug, entry])
+);

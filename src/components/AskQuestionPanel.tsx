@@ -112,7 +112,7 @@ export const AskQuestionPanel = () => {
             rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none resize-y"
+            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none resize-y"
             placeholder="Describe what you're stuck on…"
           />
         </div>
@@ -129,7 +129,7 @@ export const AskQuestionPanel = () => {
         <button
           type="submit"
           disabled={submitting || !message.trim()}
-          className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 disabled:opacity-60"
+          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 disabled:opacity-60"
         >
           {submitting ? "Sending…" : "Send question"}
         </button>

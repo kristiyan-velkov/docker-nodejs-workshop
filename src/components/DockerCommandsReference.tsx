@@ -10,10 +10,10 @@ export const DockerCommandsReference = () => {
           key={categoryIndex}
           className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
         >
-          <div className="h-1 bg-indigo-500" />
+          <div className="h-1 bg-blue-500" />
           <div className="p-6 sm:p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
                 <AppIcon name={category.icon} className="h-5 w-5" />
               </div>
               <h3 className="text-xl font-bold text-slate-900">
@@ -24,7 +24,7 @@ export const DockerCommandsReference = () => {
               {category.commands.map((cmd, cmdIndex) => (
                 <div
                   key={cmdIndex}
-                  className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition hover:border-indigo-200"
+                  className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition hover:border-blue-200"
                 >
                   <h4 className="text-base font-semibold text-slate-900">
                     {cmd.title}

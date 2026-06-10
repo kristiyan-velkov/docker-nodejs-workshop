@@ -108,7 +108,7 @@ export const AdminDashboard = () => {
           onClick={() => setActiveSection("progress")}
           className={`px-4 py-2 rounded-xl font-semibold text-sm ${
             activeSection === "progress"
-              ? "bg-indigo-600 text-white"
+              ? "bg-blue-600 text-white"
               : "bg-slate-100 text-slate-700"
           }`}
         >
@@ -119,7 +119,7 @@ export const AdminDashboard = () => {
           onClick={() => setActiveSection("questions")}
           className={`px-4 py-2 rounded-xl font-semibold text-sm ${
             activeSection === "questions"
-              ? "bg-indigo-600 text-white"
+              ? "bg-blue-600 text-white"
               : "bg-slate-100 text-slate-700"
           }`}
         >
@@ -146,7 +146,7 @@ export const AdminDashboard = () => {
                       </p>
                       <p className="text-sm text-slate-500">{p.email}</p>
                     </div>
-                    <p className="text-sm font-semibold text-indigo-600">
+                    <p className="text-sm font-semibold text-blue-600">
                       {completed} / {WORKSHOP_TASK_COUNT} completed
                     </p>
                   </div>

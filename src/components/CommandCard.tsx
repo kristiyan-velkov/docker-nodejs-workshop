@@ -13,7 +13,7 @@ export const CommandCard = ({ command }: CommandCardProps) => {
 
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <div className="h-1 bg-indigo-500" />
+      <div className="h-1 bg-blue-500" />
       <div className="p-6">
         <h3 className="text-lg font-bold text-slate-900">{command.title}</h3>
         <p className="mt-1 mb-4 text-sm text-slate-500">{command.description}</p>

@@ -12,6 +12,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import { BOOK_PRIZE } from "../constants/bookPrize";
 import { SOCIAL_LINKS } from "../constants/data";
 import {
   useTaskProgressSync,
@@ -669,7 +670,7 @@ export const WorkshopTasks = () => {
   return (
     <div className="space-y-6">
       <div className="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="h-1.5 bg-linear-to-r from-indigo-500 to-violet-500" />
+        <div className="h-1.5 bg-linear-to-r from-blue-500 to-sky-500" />
         <div className="p-6">
         <div className="flex items-start justify-between flex-wrap gap-4 mb-3">
           <div className="flex-1">
@@ -683,7 +684,7 @@ export const WorkshopTasks = () => {
                 href={SOCIAL_LINKS.sampleApp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-indigo-600 font-semibold hover:underline"
+                className="text-blue-600 font-semibold hover:underline"
               >
                 workshop-node-congress
               </a>{" "}
@@ -691,12 +692,12 @@ export const WorkshopTasks = () => {
               takes you.
             </p>
           </div>
-          <div className="shrink-0 rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-2 shadow-sm">
+          <div className="shrink-0 rounded-xl border border-blue-200 bg-blue-50 px-4 py-2 shadow-sm">
             <p className="flex items-center gap-1 text-xs font-semibold text-slate-600 mb-1">
               <Clock className="h-3.5 w-3.5" />
               Expected Time
             </p>
-            <p className="text-lg font-bold text-indigo-600">
+            <p className="text-lg font-bold text-blue-600">
               {calculateTotalEstimatedTime()}
             </p>
           </div>
@@ -706,9 +707,9 @@ export const WorkshopTasks = () => {
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4 flex-wrap">
                 <p className="flex items-center gap-1.5 text-sm font-semibold text-slate-700">
-                  <Clock className="h-4 w-4 text-indigo-500" />
+                  <Clock className="h-4 w-4 text-blue-500" />
                   Total Workshop Time:{" "}
-                  <span className="text-lg font-mono font-bold text-indigo-600">
+                  <span className="text-lg font-mono font-bold text-blue-600">
                     {formatTime(totalTime)}
                   </span>
                 </p>
@@ -758,7 +759,7 @@ export const WorkshopTasks = () => {
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4 flex-1">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
                     <AppIcon name={task.icon} className="h-6 w-6" />
                   </div>
                   <div className="flex-1">
@@ -830,7 +831,7 @@ export const WorkshopTasks = () => {
                     {timer.elapsedTime > 0 && (
                       <button
                         onClick={() => completeTask(task.id)}
-                        className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                        className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
                       >
                         <CheckCircle2 className="h-4 w-4" />
                         Complete Task
@@ -854,7 +855,7 @@ export const WorkshopTasks = () => {
                 )}
                 <button
                   onClick={() => toggleTask(task.id)}
-                  className="ml-auto flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                  className="ml-auto flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
                 >
                   {expandedTask === task.id ? (
                     <>
@@ -879,7 +880,7 @@ export const WorkshopTasks = () => {
                         className="bg-slate-50 rounded-xl p-5 border-l-4 border-blue-500 shadow-sm"
                       >
                         <div className="flex items-start gap-4">
-                          <div className="shrink-0 w-8 h-8 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                          <div className="shrink-0 w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-full flex items-center justify-center font-bold text-sm">
                             {step.number}
                           </div>
                           <div className="flex-1">
@@ -951,13 +952,23 @@ export const WorkshopTasks = () => {
               — Great job!
             </p>
           )}
-          <p className="text-emerald-700">
-            Continue learning with the{" "}
+          <p className="text-emerald-700 mb-3">
+            You may qualify for a workshop prize — check the leaderboard rules
+            above. Continue learning with{" "}
+            <a
+              href={BOOK_PRIZE.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-blue-600 hover:underline"
+            >
+              {BOOK_PRIZE.title}
+            </a>{" "}
+            or the{" "}
             <a
               href={SOCIAL_LINKS.documentation}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-indigo-600 hover:underline"
+              className="font-semibold text-blue-600 hover:underline"
             >
               official Docker Node.js guide
             </a>

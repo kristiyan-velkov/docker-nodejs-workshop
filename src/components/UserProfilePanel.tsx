@@ -66,7 +66,7 @@ export const UserProfilePanel = () => {
           </div>
           <div>
             <dt className="text-slate-500">Total time tracked</dt>
-            <dd className="font-mono font-medium text-indigo-600">
+            <dd className="font-mono font-medium text-blue-600">
               {formatTime(totalSeconds)}
             </dd>
           </div>

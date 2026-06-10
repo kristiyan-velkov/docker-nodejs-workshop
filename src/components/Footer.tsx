@@ -33,7 +33,7 @@ export const Footer = () => {
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 shadow-md shadow-indigo-200">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 shadow-md shadow-blue-200">
                 <Container className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -53,7 +53,7 @@ export const Footer = () => {
               href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-600 no-underline shadow-sm transition-all hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-600 no-underline shadow-sm transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 hover:-translate-y-0.5"
             >
               GitHub Repository
             </a>
@@ -71,7 +71,7 @@ export const Footer = () => {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-sm font-medium text-slate-700 no-underline transition hover:text-indigo-600"
+                      className="block text-sm font-medium text-slate-700 no-underline transition hover:text-blue-600"
                     >
                       {item.label}
                     </a>
@@ -96,7 +96,7 @@ export const Footer = () => {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm font-medium text-slate-600 no-underline transition hover:text-indigo-600"
+                      className="text-sm font-medium text-slate-600 no-underline transition hover:text-blue-600"
                     >
                       {item.label}
                     </a>
@@ -107,7 +107,7 @@ export const Footer = () => {
                     href={SOCIAL_LINKS.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-slate-600 no-underline transition hover:text-indigo-600"
+                    className="text-sm font-medium text-slate-600 no-underline transition hover:text-blue-600"
                   >
                     LinkedIn
                   </a>

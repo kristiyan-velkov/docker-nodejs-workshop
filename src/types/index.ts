@@ -20,17 +20,6 @@ export interface FooterSection {
   links: FooterLink[];
 }
 
-export type TabType =
-  | "overview"
-  | "commands"
-  | "concepts"
-  | "learn"
-  | "commands-reference"
-  | "tasks"
-  | "ask-question"
-  | "profile"
-  | "admin";
-
 export interface DockerConcept {
   icon: string;
   title: string;
