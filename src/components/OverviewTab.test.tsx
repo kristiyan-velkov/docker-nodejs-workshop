@@ -10,21 +10,20 @@ describe("OverviewTab Component", () => {
   it("renders Docker Files section", () => {
     render(<OverviewTab />);
     expect(screen.getByText(/🎯 Docker Files/i)).toBeInTheDocument();
-    expect(screen.getByText(/Dockerfile.dev/i)).toBeInTheDocument();
-    expect(screen.getByText(/Multi-stage production build with Nginx/i)).toBeInTheDocument();
+    expect(screen.getByText(/Dockerfile.development/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Multi-stage production build \(Express/i)
+    ).toBeInTheDocument();
   });
 
   it("renders all Docker file items", () => {
     render(<OverviewTab />);
-    // Use getAllByText for Dockerfile since it appears multiple times
     const dockerfiles = screen.getAllByText(/Dockerfile/i);
     expect(dockerfiles.length).toBeGreaterThanOrEqual(3);
-    expect(screen.getByText(/Dockerfile.dev/i)).toBeInTheDocument();
-    expect(screen.getByText(/Dockerfile.serve/i)).toBeInTheDocument();
-    expect(screen.getByText(/compose.yaml/i)).toBeInTheDocument();
-    // Use getAllByText for nginx.conf since it might appear multiple times
-    const nginxConfs = screen.getAllByText(/nginx.conf/i);
-    expect(nginxConfs.length).toBeGreaterThan(0);
+    expect(screen.getByText(/Dockerfile.development/i)).toBeInTheDocument();
+    expect(screen.getByText(/Dockerfile.test/i)).toBeInTheDocument();
+    expect(screen.getByText(/compose.yml/i)).toBeInTheDocument();
+    expect(screen.getByText(/.env.example/i)).toBeInTheDocument();
   });
 
   it("renders Tech Stack section", () => {
@@ -34,11 +33,13 @@ describe("OverviewTab Component", () => {
 
   it("renders all tech stack items", () => {
     render(<OverviewTab />);
-    expect(screen.getByText(/React 19 with TypeScript/i)).toBeInTheDocument();
-    expect(screen.getByText(/Vite for blazing fast builds/i)).toBeInTheDocument();
-    expect(screen.getByText(/Node.js 24.11.1 Alpine/i)).toBeInTheDocument();
-    expect(screen.getByText(/Nginx Unprivileged/i)).toBeInTheDocument();
-    expect(screen.getByText(/ESLint & Vitest for quality/i)).toBeInTheDocument();
+    expect(screen.getByText(/Express 5 \+ React 19/i)).toBeInTheDocument();
+    expect(screen.getByText(/Vite client \+ esbuild/i)).toBeInTheDocument();
+    expect(screen.getByText(/PostgreSQL 16/i)).toBeInTheDocument();
+    expect(screen.getByText(/Node.js 24.16.0 Alpine/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Vitest, Docker Compose Watch/i)
+    ).toBeInTheDocument();
   });
 
   it("renders content in grid layout", () => {
@@ -68,4 +69,3 @@ describe("OverviewTab Component", () => {
     });
   });
 });
-

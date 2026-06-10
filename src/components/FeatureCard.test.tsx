@@ -6,7 +6,7 @@ describe("FeatureCard Component", () => {
   const mockFeature: Feature = {
     icon: "🐳",
     title: "Docker Containerization",
-    description: "Seamlessly package your React app with Docker",
+    description: "Seamlessly package your Node.js full-stack app with Docker",
   };
 
   it("renders without crashing", () => {

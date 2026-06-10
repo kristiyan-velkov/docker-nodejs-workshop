@@ -26,10 +26,12 @@ describe("Constants Data", () => {
       expect(dockerFeature?.icon).toBe("🐳");
     });
 
-    it("contains the Performance Optimization feature", () => {
-      const perfFeature = FEATURES.find((f) => f.title === "Performance Optimization");
-      expect(perfFeature).toBeDefined();
-      expect(perfFeature?.icon).toBe("⚡");
+    it("contains the Compose Watch feature", () => {
+      const watchFeature = FEATURES.find(
+        (f) => f.title === "Compose Watch & Hot Reload"
+      );
+      expect(watchFeature).toBeDefined();
+      expect(watchFeature?.icon).toBe("⚡");
     });
 
     it("contains the Security Best Practices feature", () => {
@@ -58,10 +60,12 @@ describe("Constants Data", () => {
       });
     });
 
-    it("contains the Start Development Server command", () => {
-      const devCommand = DOCKER_COMMANDS.find((c) => c.title === "Start Development Server");
+    it("contains the Start Development Stack command", () => {
+      const devCommand = DOCKER_COMMANDS.find(
+        (c) => c.title === "Start Development Stack"
+      );
       expect(devCommand).toBeDefined();
-      expect(devCommand?.command).toBe("docker compose up react-dev");
+      expect(devCommand?.command).toBe("docker compose up app-dev --watch");
     });
 
     it("contains the Build Production Image command", () => {
@@ -69,15 +73,17 @@ describe("Constants Data", () => {
         (c) => c.title === "Build Production Image"
       );
       expect(buildCommand).toBeDefined();
-      expect(buildCommand?.command).toBe("docker build -t docker-reactjs-sample -f Dockerfile .");
+      expect(buildCommand?.command).toBe("docker build -t todoapp:local .");
     });
 
-    it("contains the Start Production Server command", () => {
+    it("contains the Start Production Stack command", () => {
       const prodCommand = DOCKER_COMMANDS.find(
-        (c) => c.title === "Start Production Server"
+        (c) => c.title === "Start Production Stack"
       );
       expect(prodCommand).toBeDefined();
-      expect(prodCommand?.command).toBe("docker compose up react-prod");
+      expect(prodCommand?.command).toBe(
+        "docker compose --profile prod up app-prod --build"
+      );
     });
   });
 
@@ -87,6 +93,7 @@ describe("Constants Data", () => {
       expect(SOCIAL_LINKS).toHaveProperty("medium");
       expect(SOCIAL_LINKS).toHaveProperty("newsletter");
       expect(SOCIAL_LINKS).toHaveProperty("github");
+      expect(SOCIAL_LINKS).toHaveProperty("sampleApp");
       expect(SOCIAL_LINKS).toHaveProperty("githubSponsors");
       expect(SOCIAL_LINKS).toHaveProperty("donate");
       expect(SOCIAL_LINKS).toHaveProperty("documentation");
@@ -106,13 +113,19 @@ describe("Constants Data", () => {
 
     it("GitHub link is correct", () => {
       expect(SOCIAL_LINKS.github).toBe(
-        "https://github.com/kristiyan-velkov/docker-reactjs-workshop"
+        "https://github.com/kristiyan-velkov/docker-nodejs-workshop"
       );
     });
 
-    it("Documentation link points to Docker docs", () => {
+    it("Sample app link is correct", () => {
+      expect(SOCIAL_LINKS.sampleApp).toBe(
+        "https://github.com/kristiyan-velkov/workshop-node-congress"
+      );
+    });
+
+    it("Documentation link points to Docker Node.js guide", () => {
       expect(SOCIAL_LINKS.documentation).toBe(
-        "https://docs.docker.com/guides/reactjs/"
+        "https://docs.docker.com/guides/nodejs"
       );
     });
 

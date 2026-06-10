@@ -5,16 +5,15 @@ describe("App Component", () => {
   it("renders without crashing", () => {
     render(<App />);
     // Use getAllByText since text appears multiple times
-    const workshopTexts = screen.getAllByText(/React.js Advanced Workshop/i);
+    const workshopTexts = screen.getAllByText(/Node.js Docker Workshop/i);
     expect(workshopTexts.length).toBeGreaterThan(0);
   });
 
   it("renders all major sections", () => {
     render(<App />);
     
-    // Hero section - use getAllByText since text appears multiple times
-    const londonTexts = screen.getAllByText(/4 Hours • London/i);
-    expect(londonTexts.length).toBeGreaterThan(0);
+    const congressTexts = screen.getAllByText(/Node.js Congress 2026/i);
+    expect(congressTexts.length).toBeGreaterThan(0);
     
     // Features section
     expect(screen.getByText(/Workshop Learning Objectives/i)).toBeInTheDocument();

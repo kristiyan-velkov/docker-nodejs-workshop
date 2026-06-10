@@ -31,16 +31,27 @@ describe("Footer Component", () => {
     render(<Footer />);
     const newsletterLink = screen.getByText(/Frontend World Newsletter/i);
     expect(newsletterLink).toBeInTheDocument();
-    expect(newsletterLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.newsletter);
+    expect(newsletterLink.closest("a")).toHaveAttribute(
+      "href",
+      SOCIAL_LINKS.newsletter
+    );
     expect(newsletterLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
-  it("renders the Medium blog link", () => {
+  it("renders the sample app link", () => {
     render(<Footer />);
-    const mediumLink = screen.getByText(/Blog on Medium/i);
-    expect(mediumLink).toBeInTheDocument();
-    expect(mediumLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.medium);
-    expect(mediumLink.closest("a")).toHaveAttribute("target", "_blank");
+    const sampleLink = screen.getByText(/Sample App \(workshop-node-congress\)/i);
+    expect(sampleLink).toBeInTheDocument();
+    expect(sampleLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.sampleApp);
+    expect(sampleLink.closest("a")).toHaveAttribute("target", "_blank");
+  });
+
+  it("renders the Docker Node.js guide link", () => {
+    render(<Footer />);
+    const docsLink = screen.getByText(/Docker Node.js Guide/i);
+    expect(docsLink).toBeInTheDocument();
+    expect(docsLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.documentation);
+    expect(docsLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
   it("renders the Support section", () => {
@@ -67,7 +78,7 @@ describe("Footer Component", () => {
   it("renders the copyright text", () => {
     render(<Footer />);
     expect(
-      screen.getByText(/React.js Advanced Workshop • 4 Hours • London • MIT License/i)
+      screen.getByText(/Node.js Docker Workshop • Node.js Congress 2026 • MIT License/i)
     ).toBeInTheDocument();
   });
 

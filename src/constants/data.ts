@@ -7,73 +7,73 @@ import type {
 
 export const FEATURES: Feature[] = [
   {
-    icon: "⚛️",
-    title: "Advanced React Patterns",
+    icon: "🟢",
+    title: "Express 5 Full-Stack API",
     description:
-      "Master hooks, context API, performance optimization, and modern React 19 features.",
+      "Containerize a modern Node.js API with React 19 client, esbuild, and PostgreSQL.",
   },
   {
     icon: "🐳",
     title: "Docker Containerization",
     description:
-      "Learn multi-stage builds, Docker Compose, and production deployment strategies.",
+      "Learn multi-stage builds, Docker Compose profiles, and production deployment strategies.",
   },
   {
     icon: "⚡",
-    title: "Performance Optimization",
+    title: "Compose Watch & Hot Reload",
     description:
-      "Code splitting, lazy loading, memoization, and bundle optimization techniques.",
+      "Develop inside Docker with Vite HMR, file sync, and smart rebuilds on dependency changes.",
   },
   {
     icon: "🔒",
     title: "Security Best Practices",
     description:
-      "Secure container builds, vulnerability scanning, and production security patterns.",
+      "Non-root production images, vulnerability scanning, and secure Compose networking.",
   },
   {
     icon: "🚀",
-    title: "Production Deployment",
+    title: "CI/CD with GitHub Actions",
     description:
-      "CI/CD pipelines, Kubernetes basics, and scalable deployment architectures.",
+      "Run tests in containers and push multi-arch images to Docker Hub on main.",
   },
   {
     icon: "📚",
     title: "Hands-On Learning",
     description:
-      "Practical exercises and real-world scenarios to reinforce your learning.",
+      "Step-by-step tasks with timers to containerize the official Docker Node.js sample app.",
   },
 ];
 
 export const DOCKER_COMMANDS: DockerCommand[] = [
   {
-    title: "Start Development Server",
-    command: "docker compose up react-dev",
-    description: "Start development server with hot reload on port 5173",
+    title: "Start Development Stack",
+    command: "docker compose up app-dev --watch",
+    description: "Start API + Vite HMR + Postgres with Compose Watch",
   },
   {
-    title: "Start Production Server",
-    command: "docker compose up react-prod",
-    description: "Start production server with Nginx on port 8080",
+    title: "Start Production Stack",
+    command: "docker compose --profile prod up app-prod --build",
+    description: "Start production build on port 8080 (Express serves API + client)",
   },
   {
     title: "Run Tests",
-    command: "docker compose up react-test",
-    description: "Run test suite in container",
+    command: "docker compose --profile test run --rm --build app-test",
+    description: "Run Vitest with coverage in a test container",
   },
   {
-    title: "Run Linter",
-    command: "docker compose up react-lint",
-    description: "Run ESLint in container",
+    title: "Start Database Only",
+    command: "docker compose up db -d",
+    description: "Start PostgreSQL for local npm test outside Compose",
   },
   {
     title: "Build Production Image",
-    command: "docker build -t docker-reactjs-sample -f Dockerfile .",
-    description: "Build optimized production image with Nginx",
+    command: "docker build -t todoapp:local .",
+    description: "Build multi-stage production image (Express + built client)",
   },
   {
     title: "Build Development Image",
-    command: "docker build -t docker-reactjs-sample-dev -f Dockerfile.dev .",
-    description: "Build development image with Vite",
+    command: "docker build -f Dockerfile.development -t todoapp:dev .",
+    description: "Build development image with hot reload support",
   },
 ];
 
@@ -83,16 +83,16 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     title: "Docker Image",
     description:
       "A Docker image is a read-only template used to create containers. It contains all the code, runtime, libraries, and dependencies needed to run an application. Images are built from Dockerfiles and can be stored in registries like Docker Hub.",
-    example: "docker build -t my-app:latest .",
+    example: "docker build -t todoapp:local .",
     docsLink: "https://docs.docker.com/get-started/overview/#docker-images",
   },
   {
     icon: "📝",
     title: "Dockerfile",
     description:
-      "A Dockerfile is a text file containing instructions for building a Docker image. It defines the base image, sets up the environment, copies files, installs dependencies, and configures how the container runs. This project uses multi-stage builds for optimized production images.",
+      "A Dockerfile is a text file containing instructions for building a Docker image. This workshop uses multi-stage builds: a builder stage compiles the Vite client and esbuild server bundle, then a slim Node runner serves the app.",
     example:
-      "FROM node:24.11.1-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
+      "ARG NODE_VERSION=24.16.0-alpine\nFROM node:${NODE_VERSION} AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
     docsLink: "https://docs.docker.com/reference/dockerfile/",
   },
   {
@@ -100,15 +100,15 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     title: "Docker Container",
     description:
       "A Docker container is a running instance of a Docker image. Containers are isolated, lightweight, and portable environments that run applications. Multiple containers can run from the same image, each with its own isolated filesystem and network.",
-    example: "docker run -d -p 8080:8080 docker-reactjs-sample",
+    example: "docker run --rm -p 8080:3000 todoapp:local",
     docsLink: "https://docs.docker.com/get-started/overview/#docker-containers",
   },
   {
     icon: "🎼",
     title: "Docker Compose",
     description:
-      "Docker Compose is a tool for defining and running multi-container Docker applications. It uses a YAML file (compose.yaml) to configure services, networks, and volumes, making it easy to orchestrate complex applications.",
-    example: "docker compose up -d",
+      "Docker Compose is a tool for defining and running multi-container Docker applications. It uses a YAML file (compose.yml) to configure services, networks, and volumes — including profiles for prod and test.",
+    example: "docker compose up app-dev --watch",
     docsLink: "https://docs.docker.com/compose/",
   },
   {
@@ -116,7 +116,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     title: ".dockerignore File",
     description:
       "A .dockerignore file specifies which files and directories should be excluded from the Docker build context. Similar to .gitignore, it helps reduce build time, image size, and prevents sensitive files from being included in images.",
-    example: "node_modules/\n.git/\n.env\n*.log\n.DS_Store",
+    example: "node_modules/\n.git/\n.env*\ndist/\ncoverage/",
     docsLink: "https://docs.docker.com/build/building/context/#dockerignore",
   },
   {
@@ -139,7 +139,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     icon: "🌐",
     title: "Docker Network",
     description:
-      "Docker networks enable containers to communicate with each other and with the host. Docker provides default networks (bridge, host, none) and allows creating custom networks for better isolation and control.",
+      "Docker networks enable containers to communicate with each other and with the host. In Compose, services reach each other by name — e.g. the app uses POSTGRES_HOST=db to connect to the database service.",
     example:
       "docker network create my-network\ndocker run --network my-network my-app",
     docsLink: "https://docs.docker.com/network/",
@@ -158,7 +158,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     title: "Docker Hub",
     description:
       "Docker Hub is the world's largest container registry, providing a cloud-based repository for Docker images. It allows you to store, share, and pull Docker images, making it easy to distribute applications.",
-    example: "docker pull nginx:latest\ndocker push username/my-app:latest",
+    example: "docker pull node:24.16.0-alpine\ndocker push username/todoapp:latest",
     docsLink: "https://docs.docker.com/docker-hub/",
   },
   {
@@ -167,14 +167,14 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     description:
       "Multi-stage builds allow you to use multiple FROM statements in a Dockerfile, enabling you to build in one stage and copy only necessary artifacts to a smaller final image. This significantly reduces image size and improves security.",
     example:
-      "FROM node:alpine AS builder\nWORKDIR /app\nRUN npm build\nFROM nginx:alpine\nCOPY --from=builder /app/dist /usr/share/nginx/html",
+      "FROM node:24.16.0-alpine AS builder\nRUN npm run build\nFROM node:24.16.0-alpine AS runner\nCOPY --from=builder /app/dist ./dist\nUSER node\nENTRYPOINT [\"node\", \"dist/server.js\"]",
     docsLink: "https://docs.docker.com/build/building/multi-stage/",
   },
   {
     icon: "🚀",
     title: "Docker Init",
     description:
-      "Docker Init is a command-line tool that helps initialize Docker resources in your project. It automatically generates Dockerfiles, compose.yaml files, and .dockerignore files based on your project type, making it easier to get started with Docker.",
+      "Docker Init is a command-line tool that helps initialize Docker resources in your project. It automatically generates Dockerfiles, compose files, and .dockerignore files based on your project type, making it easier to get started with Docker.",
     example: "docker init",
     docsLink: "https://docs.docker.com/reference/cli/docker/init/",
   },
@@ -191,23 +191,23 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         description:
           "Build a Docker image from a Dockerfile in the current directory",
         examples: [
-          "docker build -t docker-reactjs-sample .",
-          "docker build -t docker-reactjs-sample-dev -f Dockerfile.dev .",
-          "docker build -t docker-reactjs-sample-serve -f Dockerfile.serve .",
+          "docker build -t todoapp:local .",
+          "docker build -f Dockerfile.development -t todoapp:dev .",
+          "docker build -f Dockerfile.test -t todoapp:test .",
         ],
       },
       {
         title: "List images",
         command: "docker images",
         description: "List all Docker images on your system",
-        examples: ["docker images", "docker images | grep react"],
+        examples: ["docker images", "docker images | grep todoapp"],
       },
       {
         title: "Remove an image",
         command: "docker rmi <image-name>",
         description: "Remove one or more Docker images",
         examples: [
-          "docker rmi my-app:latest",
+          "docker rmi todoapp:local",
           "docker rmi $(docker images -q)",
         ],
       },
@@ -216,8 +216,8 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker pull <image-name>:<tag>",
         description: "Download an image from a registry",
         examples: [
-          "docker pull node:24.11.1-alpine",
-          "docker pull nginxinc/nginx-unprivileged:alpine3.22",
+          "docker pull node:24.16.0-alpine",
+          "docker pull postgres:16-alpine",
         ],
       },
       {
@@ -225,8 +225,8 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker push <image-name>:<tag>",
         description: "Upload an image to a registry",
         examples: [
-          "docker push my-username/my-app:latest",
-          "docker push my-registry.com/app:v1.0",
+          "docker push my-username/todoapp:latest",
+          "docker push my-registry.com/todoapp:v1.0",
         ],
       },
       {
@@ -234,8 +234,8 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker tag <source> <target>",
         description: "Create a tag for an image",
         examples: [
-          "docker tag my-app:latest my-app:v1.0",
-          "docker tag my-app:latest registry.com/my-app:latest",
+          "docker tag todoapp:local my-username/todoapp:latest",
+          "docker tag todoapp:local my-username/todoapp:v1.0",
         ],
       },
     ],
@@ -249,9 +249,9 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker run [options] <image-name>",
         description: "Create and start a container from an image",
         examples: [
-          "docker run -d -p 8080:8080 docker-reactjs-sample",
-          "docker run -d -p 5173:5173 docker-reactjs-sample-dev",
-          "docker run --name react-dev -it docker-reactjs-sample-dev sh",
+          "docker run --rm -p 8080:3000 todoapp:local",
+          "docker run --rm -p 3000:3000 -p 5173:5173 todoapp:dev",
+          "docker run --name todoapp-debug -it todoapp:dev sh",
         ],
       },
       {
@@ -268,21 +268,21 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         title: "Stop a container",
         command: "docker stop <container-id/name>",
         description: "Stop one or more running containers",
-        examples: ["docker stop my-container", "docker stop $(docker ps -q)"],
+        examples: ["docker stop todoapp-dev", "docker stop $(docker ps -q)"],
       },
       {
         title: "Start a container",
         command: "docker start <container-id/name>",
         description: "Start one or more stopped containers",
-        examples: ["docker start my-container", "docker start -a my-container"],
+        examples: ["docker start todoapp-dev", "docker start -a todoapp-dev"],
       },
       {
         title: "Remove a container",
         command: "docker rm <container-id/name>",
         description: "Remove one or more containers",
         examples: [
-          "docker rm my-container",
-          "docker rm -f my-container",
+          "docker rm todoapp-dev",
+          "docker rm -f todoapp-dev",
           "docker rm $(docker ps -aq)",
         ],
       },
@@ -291,9 +291,9 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker exec [options] <container> <command>",
         description: "Run a command in a running container",
         examples: [
-          "docker exec -it my-container sh",
-          "docker exec my-container npm test",
-          "docker exec -u root my-container ls -la",
+          "docker exec -it todoapp-dev sh",
+          "docker exec todoapp-dev npm test",
+          "docker exec todoapp-dev curl -s http://localhost:3000/health",
         ],
       },
       {
@@ -301,9 +301,9 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker logs [options] <container>",
         description: "Fetch logs from a container",
         examples: [
-          "docker logs my-container",
-          "docker logs -f my-container",
-          "docker logs --tail 100 my-container",
+          "docker logs todoapp-dev",
+          "docker logs -f todoapp-dev",
+          "docker logs --tail 100 todoapp-prod",
         ],
       },
       {
@@ -311,8 +311,8 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker inspect <container>",
         description: "Return low-level information about a container",
         examples: [
-          "docker inspect my-container",
-          "docker inspect --format='{{.NetworkSettings.IPAddress}}' my-container",
+          "docker inspect todoapp-dev",
+          "docker inspect --format='{{.NetworkSettings.IPAddress}}' todoapp-dev",
         ],
       },
     ],
@@ -332,7 +332,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker volume create <volume-name>",
         description: "Create a new volume",
         examples: [
-          "docker volume create my-data",
+          "docker volume create todoapp-data",
           "docker volume create --driver local my-volume",
         ],
       },
@@ -340,14 +340,14 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         title: "Inspect a volume",
         command: "docker volume inspect <volume-name>",
         description: "Display detailed information about a volume",
-        examples: ["docker volume inspect my-data"],
+        examples: ["docker volume inspect todoapp-data"],
       },
       {
         title: "Remove a volume",
         command: "docker volume rm <volume-name>",
         description: "Remove one or more volumes",
         examples: [
-          "docker volume rm my-data",
+          "docker volume rm todoapp-data",
           "docker volume rm $(docker volume ls -q)",
         ],
       },
@@ -368,11 +368,10 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker compose up [options] [service]",
         description: "Create and start containers",
         examples: [
-          "docker compose up react-dev",
-          "docker compose up react-prod -d",
-          "docker compose up react-dev --build",
-          "docker compose up react-test",
-          "docker compose up react-lint",
+          "docker compose up app-dev --watch",
+          "docker compose --profile prod up app-prod --build -d",
+          "docker compose --profile test run --rm --build app-test",
+          "docker compose up db -d",
         ],
       },
       {
@@ -382,7 +381,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         examples: [
           "docker compose down",
           "docker compose down -v",
-          "docker compose down --remove-orphans",
+          "docker compose --profile prod down",
         ],
       },
       {
@@ -391,9 +390,8 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         description: "View output from containers",
         examples: [
           "docker compose logs",
-          "docker compose logs -f react-dev",
-          "docker compose logs react-prod",
-          "docker compose logs react-test",
+          "docker compose logs -f app-dev",
+          "docker compose logs app-prod",
         ],
       },
       {
@@ -401,9 +399,9 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker compose exec <service> <command>",
         description: "Execute a command in a running service",
         examples: [
-          "docker compose exec react-dev npm test",
-          "docker compose exec react-dev sh",
-          "docker compose exec react-dev npm run lint",
+          "docker compose exec app-dev npm test",
+          "docker compose exec app-dev sh",
+          "docker compose exec db psql -U todoapp -d todoapp",
         ],
       },
       {
@@ -411,9 +409,9 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker compose build [options] [service]",
         description: "Build or rebuild services",
         examples: [
-          "docker compose build react-dev",
-          "docker compose build react-prod --no-cache",
-          "docker compose build react-test",
+          "docker compose build app-dev",
+          "docker compose build app-prod --no-cache",
+          "docker compose build app-test",
         ],
       },
       {
@@ -430,8 +428,9 @@ export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/kristiyan-velkov-763130b3/",
   medium: "https://medium.com/@kristiyanvelkov",
   newsletter: "https://frontendworld.substack.com/",
-  github: "https://github.com/kristiyan-velkov/docker-reactjs-workshop",
+  github: "https://github.com/kristiyan-velkov/docker-nodejs-workshop",
+  sampleApp: "https://github.com/kristiyan-velkov/workshop-node-congress",
   githubSponsors: "https://github.com/sponsors/kristiyan-velkov",
   donate: "https://donate.stripe.com/eVq4gz9dKex71ZW68L3F600",
-  documentation: "https://docs.docker.com/guides/reactjs/",
+  documentation: "https://docs.docker.com/guides/nodejs",
 } as const;

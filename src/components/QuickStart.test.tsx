@@ -55,7 +55,7 @@ describe("QuickStart Component", () => {
     fireEvent.click(quickCommandsButton);
     
     // Check if Quick Commands content is displayed - use getAllByText since there might be multiple matches
-    const devServerTexts = screen.getAllByText(/Start Development Server/i);
+    const devServerTexts = screen.getAllByText(/Start Development Stack/i);
     expect(devServerTexts.length).toBeGreaterThan(0);
   });
 

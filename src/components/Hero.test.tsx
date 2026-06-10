@@ -4,14 +4,13 @@ import { Hero } from "./index";
 describe("Hero Component", () => {
   it("renders without crashing", () => {
     render(<Hero />);
-    expect(screen.getByText(/React.js Advanced Workshop/i)).toBeInTheDocument();
+    expect(screen.getByText(/Node.js Docker Workshop/i)).toBeInTheDocument();
   });
 
-  it("renders the React logo", () => {
+  it("renders the Node.js logo label", () => {
     render(<Hero />);
-    const reactLogo = screen.getByAltText("React logo");
-    expect(reactLogo).toBeInTheDocument();
-    expect(reactLogo).toHaveAttribute("src");
+    expect(screen.getByLabelText("Node.js logo")).toBeInTheDocument();
+    expect(screen.getByText("Node.js")).toBeInTheDocument();
   });
 
   it("renders the Docker emoji", () => {
@@ -21,15 +20,15 @@ describe("Hero Component", () => {
 
   it("renders the main heading with correct text", () => {
     render(<Hero />);
-    expect(screen.getByText(/React.js Advanced Workshop/i)).toBeInTheDocument();
-    expect(screen.getByText(/4 Hours • London/i)).toBeInTheDocument();
+    expect(screen.getByText(/Node.js Docker Workshop/i)).toBeInTheDocument();
+    expect(screen.getByText(/Node.js Congress 2026/i)).toBeInTheDocument();
   });
 
   it("renders the description paragraph", () => {
     render(<Hero />);
     expect(
       screen.getByText(
-        /Master advanced React.js concepts and Docker containerization/i
+        /Master Docker containerization for full-stack Node.js applications/i
       )
     ).toBeInTheDocument();
   });
@@ -40,7 +39,7 @@ describe("Hero Component", () => {
     expect(docButton).toBeInTheDocument();
     expect(docButton.closest("a")).toHaveAttribute(
       "href",
-      "https://docs.docker.com/guides/reactjs/"
+      "https://docs.docker.com/guides/nodejs"
     );
     expect(docButton.closest("a")).toHaveAttribute("target", "_blank");
     expect(docButton.closest("a")).toHaveAttribute("rel", "noopener noreferrer");
@@ -52,7 +51,7 @@ describe("Hero Component", () => {
     expect(githubButton).toBeInTheDocument();
     expect(githubButton.closest("a")).toHaveAttribute(
       "href",
-      "https://github.com/kristiyan-velkov/docker-reactjs-workshop"
+      "https://github.com/kristiyan-velkov/docker-nodejs-workshop"
     );
     expect(githubButton.closest("a")).toHaveAttribute("target", "_blank");
     expect(githubButton.closest("a")).toHaveAttribute("rel", "noopener noreferrer");
@@ -74,4 +73,3 @@ describe("Hero Component", () => {
     expect(decorativeElements.length).toBeGreaterThan(0);
   });
 });
-

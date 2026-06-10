@@ -25,20 +25,28 @@ export const Footer = () => {
             </h4>
             <div className="flex flex-col space-y-2">
               <a
+                href={SOCIAL_LINKS.sampleApp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
+              >
+                📦 Sample App (workshop-node-congress)
+              </a>
+              <a
+                href={SOCIAL_LINKS.documentation}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
+              >
+                📚 Docker Node.js Guide
+              </a>
+              <a
                 href={SOCIAL_LINKS.newsletter}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
               >
                 📧 Frontend World Newsletter
-              </a>
-              <a
-                href={SOCIAL_LINKS.medium}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-              >
-                📝 Blog on Medium
               </a>
             </div>
           </div>
@@ -70,7 +78,7 @@ export const Footer = () => {
 
         <div className="pt-8 border-t border-white/10 text-center">
           <p className="text-gray-400">
-            React.js Advanced Workshop • 4 Hours • London • MIT License
+            Node.js Docker Workshop • Node.js Congress 2026 • MIT License
           </p>
         </div>
       </div>

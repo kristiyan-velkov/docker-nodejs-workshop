@@ -6,7 +6,7 @@ describe("CommandsTab Component", () => {
   it("renders without crashing", () => {
     render(<CommandsTab />);
     // Use getAllByText since the title might appear multiple times
-    const devServerTexts = screen.getAllByText(/Start Development Server/i);
+    const devServerTexts = screen.getAllByText(/Start Development Stack/i);
     expect(devServerTexts.length).toBeGreaterThan(0);
   });
 
