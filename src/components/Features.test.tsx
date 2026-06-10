@@ -20,22 +20,21 @@ describe("Features Component", () => {
     FEATURES.forEach((feature) => {
       expect(screen.getByText(feature.title)).toBeInTheDocument();
       expect(screen.getByText(feature.description)).toBeInTheDocument();
-      expect(screen.getByText(feature.icon)).toBeInTheDocument();
+      expect(screen.getByText(feature.title)).toBeInTheDocument();
     });
   });
 
   it("renders correct number of feature cards", () => {
     const { container } = render(<Features />);
-    const featureCards = container.querySelectorAll(".bg-white.p-10");
+    const featureCards = container.querySelectorAll(".rounded-2xl.border.border-slate-200");
     expect(featureCards.length).toBe(FEATURES.length);
   });
 
   it("applies correct CSS classes to section", () => {
     const { container } = render(<Features />);
     const section = container.querySelector("section");
-    expect(section).toHaveClass("py-24");
-    expect(section).toHaveClass("px-8");
-    expect(section).toHaveClass("bg-gray-50");
+    expect(section).toHaveClass("py-20");
+    expect(section).toHaveClass("bg-slate-50");
   });
 
   it("renders feature cards in a grid layout", () => {

@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { CommandCard } from "./index";
 import type { DockerCommand } from "../types";
 
-// Mock clipboard API
 Object.assign(navigator, {
   clipboard: {
     writeText: vi.fn(() => Promise.resolve()),
@@ -55,45 +54,41 @@ describe("CommandCard Component", () => {
   it("copies command to clipboard when copy button is clicked", async () => {
     render(<CommandCard command={mockCommand} />);
     const copyButton = screen.getByRole("button");
-    
+
     fireEvent.click(copyButton);
-    
+
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockCommand.command);
     expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
   });
 
   it("applies correct CSS classes", () => {
     const { container } = render(<CommandCard command={mockCommand} />);
-    const card = container.querySelector(".bg-gray-50.p-8");
+    const card = container.querySelector(".rounded-2xl.border.border-slate-200");
     expect(card).toBeInTheDocument();
-    expect(card).toHaveClass("rounded-2xl");
-    expect(card).toHaveClass("border-l-4");
-    expect(card).toHaveClass("border-green-500");
+    expect(card).toHaveClass("bg-white");
+    expect(card).toHaveClass("shadow-sm");
   });
 
   it("renders command in dark code block", () => {
     const { container } = render(<CommandCard command={mockCommand} />);
-    const codeBlock = container.querySelector(".bg-gray-800");
+    const codeBlock = container.querySelector(".bg-\\[\\#0d1117\\]");
     expect(codeBlock).toBeInTheDocument();
-    expect(codeBlock).toHaveClass("p-6");
-    expect(codeBlock).toHaveClass("rounded-xl");
   });
 
-  it("renders copy button emoji", () => {
+  it("renders copy button label", () => {
     render(<CommandCard command={mockCommand} />);
     const copyButton = screen.getByRole("button");
-    expect(copyButton).toHaveTextContent("📋");
+    expect(copyButton).toHaveTextContent("Copy");
   });
 
   it("handles multiple copy clicks", () => {
     render(<CommandCard command={mockCommand} />);
     const copyButton = screen.getByRole("button");
-    
+
     fireEvent.click(copyButton);
     fireEvent.click(copyButton);
     fireEvent.click(copyButton);
-    
+
     expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(3);
   });
 });
-

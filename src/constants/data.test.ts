@@ -23,7 +23,7 @@ describe("Constants Data", () => {
         (f) => f.title === "Docker Containerization"
       );
       expect(dockerFeature).toBeDefined();
-      expect(dockerFeature?.icon).toBe("🐳");
+      expect(dockerFeature?.icon).toBe("container");
     });
 
     it("contains the Compose Watch feature", () => {
@@ -31,7 +31,7 @@ describe("Constants Data", () => {
         (f) => f.title === "Compose Watch & Hot Reload"
       );
       expect(watchFeature).toBeDefined();
-      expect(watchFeature?.icon).toBe("⚡");
+      expect(watchFeature?.icon).toBe("zap");
     });
 
     it("contains the Security Best Practices feature", () => {
@@ -39,7 +39,7 @@ describe("Constants Data", () => {
         (f) => f.title === "Security Best Practices"
       );
       expect(securityFeature).toBeDefined();
-      expect(securityFeature?.icon).toBe("🔒");
+      expect(securityFeature?.icon).toBe("shield");
     });
   });
 

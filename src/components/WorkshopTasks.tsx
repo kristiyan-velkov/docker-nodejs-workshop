@@ -1,5 +1,24 @@
 import { useState, useEffect, useRef } from "react";
+import {
+  CheckCircle2,
+  ChevronDown,
+  ChevronUp,
+  Clock,
+  Lightbulb,
+  Pause,
+  Pencil,
+  Play,
+  RefreshCw,
+  Trophy,
+} from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 import { SOCIAL_LINKS } from "../constants/data";
+import {
+  useTaskProgressSync,
+  type TimerState,
+} from "../hooks/useTaskProgressSync";
+import { AppIcon } from "./ui/AppIcon";
+import { CodeBlock } from "./ui/CodeBlock";
 
 interface Task {
   id: number;
@@ -18,13 +37,6 @@ interface TaskStep {
   code?: string;
 }
 
-interface TimerState {
-  isRunning: boolean;
-  elapsedTime: number;
-  completed?: boolean;
-  completionTime?: number;
-}
-
 const WORKSHOP_TASKS: Task[] = [
   {
     id: 1,
@@ -32,7 +44,7 @@ const WORKSHOP_TASKS: Task[] = [
     description:
       "Clone the workshop-node-congress todo app and verify the Express API and Vite client run locally",
     estimatedTime: "10 minutes",
-    icon: "📥",
+    icon: "download",
     steps: [
       {
         number: 1,
@@ -81,7 +93,7 @@ const WORKSHOP_TASKS: Task[] = [
     description:
       "Verify production build and tests pass before containerizing the full-stack app",
     estimatedTime: "10 minutes",
-    icon: "🔨",
+    icon: "hammer",
     steps: [
       {
         number: 1,
@@ -124,7 +136,7 @@ const WORKSHOP_TASKS: Task[] = [
     description:
       "Use Docker's scaffold tool to create starter Docker configuration for the Node full-stack project",
     estimatedTime: "5 minutes",
-    icon: "🚀",
+    icon: "rocket",
     steps: [
       {
         number: 1,
@@ -165,7 +177,7 @@ const WORKSHOP_TASKS: Task[] = [
     description:
       "Replace the generated Dockerfile with a multi-stage build where Express serves the API and built React client on one port",
     estimatedTime: "20 minutes",
-    icon: "📦",
+    icon: "package",
     steps: [
       {
         number: 1,
@@ -223,7 +235,7 @@ ENTRYPOINT ["node", "dist/server.js"]`,
     description:
       "Optimize build context by excluding node_modules, secrets, and build outputs while keeping config files needed for npm run build",
     estimatedTime: "10 minutes",
-    icon: "🚫",
+    icon: "ban",
     steps: [
       {
         number: 1,
@@ -274,7 +286,7 @@ compose.yml
     description:
       "Set up Dockerfile.development with hot reload, Compose Watch, and root user for Vite bind-mount compatibility",
     estimatedTime: "15 minutes",
-    icon: "⚡",
+    icon: "zap",
     steps: [
       {
         number: 1,
@@ -321,7 +333,7 @@ CMD ["npm", "run", "dev:docker"]`,
     description:
       "Wire up the db service, production profile, and Dockerfile.test for Vitest in containers",
     estimatedTime: "20 minutes",
-    icon: "🗄️",
+    icon: "database",
     steps: [
       {
         number: 1,
@@ -375,7 +387,7 @@ CMD ["npm", "run", "test:coverage"]`,
     description:
       "Scan your production image before pushing to Docker Hub",
     estimatedTime: "5 minutes",
-    icon: "🔒",
+    icon: "shield",
     steps: [
       {
         number: 1,
@@ -417,7 +429,7 @@ CMD ["npm", "run", "test:coverage"]`,
     description:
       "Tag and push your containerized Node.js todo app to Docker Hub",
     estimatedTime: "10 minutes",
-    icon: "🚀",
+    icon: "rocket",
     steps: [
       {
         number: 1,
@@ -460,7 +472,7 @@ CMD ["npm", "run", "test:coverage"]`,
     description:
       "Configure automated test-in-container and conditional Docker Hub push on main in workshop-node-congress",
     estimatedTime: "15 minutes",
-    icon: "⚙️",
+    icon: "settings",
     steps: [
       {
         number: 1,
@@ -533,50 +545,12 @@ const calculateTotalEstimatedTime = (): string => {
   }`;
 };
 
-const STORAGE_KEY = "workshop-timers";
-
-const loadTimersFromStorage = (): Record<number, TimerState> => {
-  try {
-    const savedTimers = localStorage.getItem(STORAGE_KEY);
-    if (savedTimers) {
-      const parsedTimers = JSON.parse(savedTimers);
-      const restoredTimers: Record<number, TimerState> = {};
-      Object.keys(parsedTimers).forEach((key) => {
-        const taskId = parseInt(key, 10);
-        restoredTimers[taskId] = {
-          ...parsedTimers[taskId],
-          isRunning: false,
-        };
-      });
-      return restoredTimers;
-    }
-  } catch (error) {
-    console.error("Failed to load timers from localStorage:", error);
-  }
-  return {};
-};
-
 export const WorkshopTasks = () => {
+  const { configured } = useAuth();
   const [expandedTask, setExpandedTask] = useState<number | null>(null);
-  const [timers, setTimers] = useState<Record<number, TimerState>>(() =>
-    loadTimersFromStorage()
-  );
+  const [timers, setTimers] = useState<Record<number, TimerState>>({});
+  const { clearRemoteProgress } = useTaskProgressSync(timers, setTimers);
   const intervalRefs = useRef<Record<number, NodeJS.Timeout>>({});
-  const isInitialMount = useRef(true);
-
-  useEffect(() => {
-    isInitialMount.current = false;
-  }, []);
-
-  useEffect(() => {
-    if (!isInitialMount.current) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(timers));
-      } catch (error) {
-        console.error("Failed to save timers to localStorage:", error);
-      }
-    }
-  }, [timers]);
 
   useEffect(() => {
     const currentIntervals = intervalRefs.current;
@@ -671,10 +645,8 @@ export const WorkshopTasks = () => {
     });
     intervalRefs.current = {};
     setTimers({});
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (error) {
-      console.error("Failed to clear localStorage:", error);
+    if (configured) {
+      void clearRemoteProgress();
     }
   };
 
@@ -696,19 +668,22 @@ export const WorkshopTasks = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-2xl border-l-4 border-[#339933] mb-8">
+      <div className="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="h-1.5 bg-linear-to-r from-indigo-500 to-violet-500" />
+        <div className="p-6">
         <div className="flex items-start justify-between flex-wrap gap-4 mb-3">
           <div className="flex-1">
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">
-              🎯 Workshop Challenge
+            <p className="section-eyebrow mb-2">Workshop challenge</p>
+            <h3 className="text-2xl font-bold text-slate-900 mb-2">
+              Step-by-step tasks
             </h3>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-slate-700 leading-relaxed">
               Follow these step-by-step tasks to containerize the{" "}
               <a
                 href={SOCIAL_LINKS.sampleApp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#339933] font-semibold hover:underline"
+                className="text-indigo-600 font-semibold hover:underline"
               >
                 workshop-node-congress
               </a>{" "}
@@ -716,29 +691,32 @@ export const WorkshopTasks = () => {
               takes you.
             </p>
           </div>
-          <div className="shrink-0 bg-white px-4 py-2 rounded-lg border-2 border-[#339933] shadow-sm">
-            <p className="text-xs font-semibold text-gray-600 mb-1">
-              ⏱️ Expected Time
+          <div className="shrink-0 rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-2 shadow-sm">
+            <p className="flex items-center gap-1 text-xs font-semibold text-slate-600 mb-1">
+              <Clock className="h-3.5 w-3.5" />
+              Expected Time
             </p>
-            <p className="text-lg font-bold text-[#339933]">
+            <p className="text-lg font-bold text-indigo-600">
               {calculateTotalEstimatedTime()}
             </p>
           </div>
         </div>
         {(totalTime > 0 || completedTasksCount > 0) && (
-          <div className="mt-4 p-3 bg-white rounded-lg border-2 border-[#339933]">
+          <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4 flex-wrap">
-                <p className="text-sm font-semibold text-gray-700">
-                  ⏱️ Total Workshop Time:{" "}
-                  <span className="text-lg font-mono font-bold text-[#339933]">
+                <p className="flex items-center gap-1.5 text-sm font-semibold text-slate-700">
+                  <Clock className="h-4 w-4 text-indigo-500" />
+                  Total Workshop Time:{" "}
+                  <span className="text-lg font-mono font-bold text-indigo-600">
                     {formatTime(totalTime)}
                   </span>
                 </p>
                 {completedTasksCount > 0 && (
-                  <p className="text-sm font-semibold text-green-700">
-                    ✅ Completed Tasks:{" "}
-                    <span className="text-lg font-bold text-green-600">
+                  <p className="flex items-center gap-1.5 text-sm font-semibold text-emerald-700">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Completed Tasks:{" "}
+                    <span className="text-lg font-bold text-emerald-600">
                       {completedTasksCount} / {WORKSHOP_TASKS.length}
                     </span>
                   </p>
@@ -746,13 +724,15 @@ export const WorkshopTasks = () => {
               </div>
               <button
                 onClick={resetAllProgress}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                className="flex items-center gap-2 rounded-lg bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
               >
-                🔄 Reset All Progress
+                <RefreshCw className="h-4 w-4" />
+                Reset All Progress
               </button>
             </div>
           </div>
         )}
+        </div>
       </div>
 
       {WORKSHOP_TASKS.map((task) => {
@@ -771,46 +751,51 @@ export const WorkshopTasks = () => {
             key={task.id}
             className={`bg-white rounded-2xl shadow-lg border-2 overflow-hidden hover:shadow-xl transition-shadow duration-300 ${
               timer.completed
-                ? "border-green-500 bg-green-50"
-                : "border-gray-200"
+                ? "border-emerald-500 bg-emerald-50"
+                : "border-slate-200"
             }`}
           >
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4 flex-1">
-                  <span className="text-4xl">{task.icon}</span>
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
+                    <AppIcon name={task.icon} className="h-6 w-6" />
+                  </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-800 mb-1">
+                    <h3 className="text-xl font-bold text-slate-800 mb-1">
                       Task {task.id}: {task.title}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-2">
+                    <p className="text-slate-600 text-sm mb-2">
                       {task.description}
                     </p>
                     <div className="flex items-center gap-4 mt-2 flex-wrap">
-                      <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                        ⏱️ Estimated: {task.estimatedTime}
+                      <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">
+                        <Clock className="h-3 w-3" />
+                        Estimated: {task.estimatedTime}
                       </span>
                       {timer.completed && completionTimeFormatted ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-semibold text-green-700">
-                            ✅ Completed in:
+                          <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700">
+                            <CheckCircle2 className="h-3.5 w-3.5" />
+                            Completed in:
                           </span>
-                          <span className="text-lg font-mono font-bold text-green-600">
+                          <span className="text-lg font-mono font-bold text-emerald-600">
                             {completionTimeFormatted}
                           </span>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-semibold text-gray-500">
-                            ⏱️ Your time:
+                          <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500">
+                            <Clock className="h-3.5 w-3.5" />
+                            Your time:
                           </span>
                           <span
                             className={`text-lg font-mono font-bold ${
                               timer.isRunning
-                                ? "text-green-600 animate-pulse"
+                                ? "text-emerald-600 animate-pulse"
                                 : timer.elapsedTime > 0
                                 ? "text-blue-600"
-                                : "text-gray-400"
+                                : "text-slate-400"
                             }`}
                           >
                             {elapsedTimeFormatted}
@@ -828,85 +813,99 @@ export const WorkshopTasks = () => {
                     {!timer.isRunning ? (
                       <button
                         onClick={() => startTimer(task.id)}
-                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                        className="flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
                       >
-                        ▶️ Start Timer
+                        <Play className="h-4 w-4" />
+                        Start Timer
                       </button>
                     ) : (
                       <button
                         onClick={() => stopTimer(task.id)}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                        className="flex items-center gap-2 rounded-lg bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
                       >
-                        ⏸️ Stop Timer
+                        <Pause className="h-4 w-4" />
+                        Stop Timer
                       </button>
                     )}
                     {timer.elapsedTime > 0 && (
                       <button
                         onClick={() => completeTask(task.id)}
-                        className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                        className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
                       >
-                        ✅ Complete Task
+                        <CheckCircle2 className="h-4 w-4" />
+                        Complete Task
                       </button>
                     )}
                   </>
                 ) : (
                   <>
-                    <div className="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-semibold text-sm flex items-center gap-2">
-                      ✅ Task Completed
+                    <div className="flex items-center gap-2 rounded-lg bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-800">
+                      <CheckCircle2 className="h-4 w-4" />
+                      Task Completed
                     </div>
                     <button
                       onClick={() => editTask(task.id)}
-                      className="px-4 py-2 bg-gray-50 text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-100 hover:border-gray-400 transition-all duration-200 font-semibold text-sm flex items-center gap-2 shadow-sm"
+                      className="flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50"
                     >
-                      ✏️ Edit Task
+                      <Pencil className="h-4 w-4" />
+                      Edit Task
                     </button>
                   </>
                 )}
                 <button
                   onClick={() => toggleTask(task.id)}
-                  className="ml-auto px-4 py-2 bg-[#339933] text-white rounded-lg hover:bg-[#1a6b1a] transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                  className="ml-auto flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
                 >
-                  {expandedTask === task.id ? "▼ Hide Steps" : "▶ Show Steps"}
+                  {expandedTask === task.id ? (
+                    <>
+                      <ChevronUp className="h-4 w-4" />
+                      Hide Steps
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="h-4 w-4" />
+                      Show Steps
+                    </>
+                  )}
                 </button>
               </div>
 
               {expandedTask === task.id && (
-                <div className="border-t border-gray-200 pt-4 mt-4">
+                <div className="border-t border-slate-200 pt-4 mt-4">
                   <div className="space-y-4">
                     {task.steps.map((step) => (
                       <div
                         key={step.number}
-                        className="bg-gray-50 rounded-xl p-5 border-l-4 border-blue-500 shadow-sm"
+                        className="bg-slate-50 rounded-xl p-5 border-l-4 border-blue-500 shadow-sm"
                       >
                         <div className="flex items-start gap-4">
-                          <div className="shrink-0 w-8 h-8 bg-gradient-to-br from-[#339933] to-[#1a6b1a] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                          <div className="shrink-0 w-8 h-8 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-full flex items-center justify-center font-bold text-sm">
                             {step.number}
                           </div>
                           <div className="flex-1">
-                            <h4 className="font-semibold text-gray-800 mb-2">
+                            <h4 className="font-semibold text-slate-800 mb-2">
                               {step.title}
                             </h4>
-                            <p className="text-gray-600 text-sm mb-3">
+                            <p className="text-slate-600 text-sm mb-3">
                               {step.description}
                             </p>
 
                             {step.code && (
-                              <div className="mt-3 p-4 bg-gray-900 rounded-lg border border-gray-700 overflow-x-auto">
-                                <pre className="text-sm text-gray-100 font-mono whitespace-pre">
-                                  <code>{step.code}</code>
-                                </pre>
+                              <div className="mt-3">
+                                <CodeBlock code={step.code} filename="terminal" />
                               </div>
                             )}
                             {step.tips && step.tips.length > 0 && (
-                              <div className="mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded">
-                                <p className="text-xs font-semibold text-yellow-800 mb-2">
-                                  💡 Tips:
+                              <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3">
+                                <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-amber-800">
+                                  <Lightbulb className="h-3.5 w-3.5" />
+                                  Tips
                                 </p>
                                 <ul className="list-disc list-inside space-y-1">
                                   {step.tips.map((tip, index) => (
                                     <li
                                       key={index}
-                                      className="text-xs text-yellow-700"
+                                      className="text-xs text-amber-700"
                                     >
                                       {tip}
                                     </li>
@@ -927,15 +926,16 @@ export const WorkshopTasks = () => {
       })}
 
       {completedTasksCount === WORKSHOP_TASKS.length && (
-        <div className="mt-8 bg-green-50 border-l-4 border-green-500 p-6 rounded-xl">
-          <h3 className="text-xl font-bold text-green-800 mb-2">
-            🎉 Congratulations!
+        <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6">
+          <h3 className="mb-2 flex items-center gap-2 text-xl font-bold text-emerald-800">
+            <Trophy className="h-6 w-6" />
+            Congratulations!
           </h3>
-          <p className="text-green-700 mb-3">
+          <p className="text-emerald-700 mb-3">
             You&apos;ve successfully containerized your full-stack Node.js
             application! You now have:
           </p>
-          <ul className="list-disc list-inside space-y-1 text-green-700 mb-4">
+          <ul className="list-disc list-inside space-y-1 text-emerald-700 mb-4">
             <li>Multi-stage production Dockerfile (Express + built client)</li>
             <li>Development Dockerfile with Compose Watch and hot reload</li>
             <li>Test Dockerfile with Vitest coverage in containers</li>
@@ -944,19 +944,20 @@ export const WorkshopTasks = () => {
             <li>Production image scanned and pushed to Docker Hub</li>
           </ul>
           {totalTime > 0 && (
-            <p className="text-sm text-green-600 font-semibold mb-4">
-              ⏱️ Your total workshop time:{" "}
-              <span className="text-lg font-mono">{formatTime(totalTime)}</span>{" "}
-              — Great job! 🚀
+            <p className="mb-4 flex items-center gap-1.5 text-sm font-semibold text-emerald-600">
+              <Clock className="h-4 w-4" />
+              Your total workshop time:{" "}
+              <span className="font-mono text-lg">{formatTime(totalTime)}</span>
+              — Great job!
             </p>
           )}
-          <p className="text-green-700">
+          <p className="text-emerald-700">
             Continue learning with the{" "}
             <a
               href={SOCIAL_LINKS.documentation}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-[#339933] hover:underline"
+              className="font-semibold text-indigo-600 hover:underline"
             >
               official Docker Node.js guide
             </a>

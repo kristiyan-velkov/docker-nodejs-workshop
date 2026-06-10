@@ -1,53 +1,47 @@
+import { BookOpen, ExternalLink } from "lucide-react";
 import { DOCKER_CONCEPTS } from "../constants/data";
+import { AppIcon } from "./ui/AppIcon";
+import { CodeBlock } from "./ui/CodeBlock";
 
 export const DockerConcepts = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {DOCKER_CONCEPTS.map((concept, index) => (
         <div
           key={index}
-          className="bg-gray-100 p-8 rounded-2xl border-l-4 border-[#667eea] shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
+          className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
         >
-          <div className="flex items-start gap-4 mb-4">
-            <span className="text-4xl">{concept.icon}</span>
-            <h3 className="text-2xl font-bold text-gray-800">
-              {concept.title}
-            </h3>
-          </div>
-          <p className="text-gray-700 leading-relaxed mb-4 flex-1">
-            {concept.description}
-          </p>
-          {concept.example && (
-            <div className="mt-4 p-4 bg-gray-800 rounded-lg mb-4">
-              <code className="text-green-400 text-sm font-mono whitespace-pre">
-                {concept.example}
-              </code>
+          <div className="h-1 bg-indigo-500" />
+          <div className="flex flex-1 flex-col p-6">
+            <div className="mb-4 flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
+                <AppIcon name={concept.icon} className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">
+                {concept.title}
+              </h3>
             </div>
-          )}
-          {concept.docsLink && (
-            <a
-              href={concept.docsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#667eea] text-white rounded-lg hover:bg-[#764ba2] transition-colors duration-200 font-semibold text-sm mt-auto"
-            >
-              <span>📚</span>
-              <span>Learn More</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <p className="mb-4 flex-1 text-sm leading-relaxed text-slate-600">
+              {concept.description}
+            </p>
+            {concept.example && (
+              <div className="mb-4">
+                <CodeBlock code={concept.example} filename="example" />
+              </div>
+            )}
+            {concept.docsLink && (
+              <a
+                href={concept.docsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center gap-2 self-start rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white no-underline shadow-md shadow-indigo-200 transition hover:bg-indigo-700"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
-          )}
+                <BookOpen className="h-4 w-4" />
+                Learn more
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            )}
+          </div>
         </div>
       ))}
     </div>

@@ -4,7 +4,7 @@ import type { Feature } from "../types";
 
 describe("FeatureCard Component", () => {
   const mockFeature: Feature = {
-    icon: "🐳",
+    icon: "container",
     title: "Docker Containerization",
     description: "Seamlessly package your Node.js full-stack app with Docker",
   };
@@ -14,9 +14,9 @@ describe("FeatureCard Component", () => {
     expect(screen.getByText(mockFeature.title)).toBeInTheDocument();
   });
 
-  it("renders the feature icon", () => {
-    render(<FeatureCard feature={mockFeature} index={0} />);
-    expect(screen.getByText(mockFeature.icon)).toBeInTheDocument();
+  it("renders the feature icon container", () => {
+    const { container } = render(<FeatureCard feature={mockFeature} index={0} />);
+    expect(container.querySelector(".lucide-container")).toBeInTheDocument();
   });
 
   it("renders the feature title", () => {
@@ -35,28 +35,28 @@ describe("FeatureCard Component", () => {
     const { container } = render(
       <FeatureCard feature={mockFeature} index={0} />
     );
-    const card = container.querySelector(".bg-white.p-10");
+    const card = container.querySelector(".rounded-2xl.border.border-slate-200");
     expect(card).toBeInTheDocument();
-    expect(card).toHaveClass("rounded-2xl");
-    expect(card).toHaveClass("shadow-md");
+    expect(card).toHaveClass("bg-white");
+    expect(card).toHaveClass("shadow-sm");
   });
 
-  it("applies animation delay based on index", () => {
+  it("renders accent bar with color based on index", () => {
     const { container } = render(
       <FeatureCard feature={mockFeature} index={2} />
     );
-    const card = container.firstChild as HTMLElement;
-    expect(card.style.animationDelay).toBe("0.2s");
+    const accent = container.querySelector(".bg-sky-500");
+    expect(accent).toBeInTheDocument();
   });
 
   it("renders with different feature data", () => {
     const anotherFeature: Feature = {
-      icon: "⚡",
+      icon: "zap",
       title: "Lightning Fast",
       description: "Built with Vite for instant HMR",
     };
-    render(<FeatureCard feature={anotherFeature} index={1} />);
-    expect(screen.getByText(anotherFeature.icon)).toBeInTheDocument();
+    const { container } = render(<FeatureCard feature={anotherFeature} index={1} />);
+    expect(container.querySelector(".lucide-zap")).toBeInTheDocument();
     expect(screen.getByText(anotherFeature.title)).toBeInTheDocument();
     expect(screen.getByText(anotherFeature.description)).toBeInTheDocument();
   });

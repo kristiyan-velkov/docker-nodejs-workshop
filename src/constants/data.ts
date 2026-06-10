@@ -7,37 +7,37 @@ import type {
 
 export const FEATURES: Feature[] = [
   {
-    icon: "🟢",
+    icon: "box",
     title: "Express 5 Full-Stack API",
     description:
       "Containerize a modern Node.js API with React 19 client, esbuild, and PostgreSQL.",
   },
   {
-    icon: "🐳",
+    icon: "container",
     title: "Docker Containerization",
     description:
       "Learn multi-stage builds, Docker Compose profiles, and production deployment strategies.",
   },
   {
-    icon: "⚡",
+    icon: "zap",
     title: "Compose Watch & Hot Reload",
     description:
       "Develop inside Docker with Vite HMR, file sync, and smart rebuilds on dependency changes.",
   },
   {
-    icon: "🔒",
+    icon: "shield",
     title: "Security Best Practices",
     description:
       "Non-root production images, vulnerability scanning, and secure Compose networking.",
   },
   {
-    icon: "🚀",
+    icon: "rocket",
     title: "CI/CD with GitHub Actions",
     description:
       "Run tests in containers and push multi-arch images to Docker Hub on main.",
   },
   {
-    icon: "📚",
+    icon: "book-open",
     title: "Hands-On Learning",
     description:
       "Step-by-step tasks with timers to containerize the official Docker Node.js sample app.",
@@ -79,7 +79,7 @@ export const DOCKER_COMMANDS: DockerCommand[] = [
 
 export const DOCKER_CONCEPTS: DockerConcept[] = [
   {
-    icon: "📦",
+    icon: "package",
     title: "Docker Image",
     description:
       "A Docker image is a read-only template used to create containers. It contains all the code, runtime, libraries, and dependencies needed to run an application. Images are built from Dockerfiles and can be stored in registries like Docker Hub.",
@@ -87,7 +87,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/get-started/overview/#docker-images",
   },
   {
-    icon: "📝",
+    icon: "file-code",
     title: "Dockerfile",
     description:
       "A Dockerfile is a text file containing instructions for building a Docker image. This workshop uses multi-stage builds: a builder stage compiles the Vite client and esbuild server bundle, then a slim Node runner serves the app.",
@@ -96,7 +96,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/reference/dockerfile/",
   },
   {
-    icon: "🐳",
+    icon: "container",
     title: "Docker Container",
     description:
       "A Docker container is a running instance of a Docker image. Containers are isolated, lightweight, and portable environments that run applications. Multiple containers can run from the same image, each with its own isolated filesystem and network.",
@@ -104,7 +104,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/get-started/overview/#docker-containers",
   },
   {
-    icon: "🎼",
+    icon: "workflow",
     title: "Docker Compose",
     description:
       "Docker Compose is a tool for defining and running multi-container Docker applications. It uses a YAML file (compose.yml) to configure services, networks, and volumes — including profiles for prod and test.",
@@ -112,7 +112,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/compose/",
   },
   {
-    icon: "🚫",
+    icon: "ban",
     title: ".dockerignore File",
     description:
       "A .dockerignore file specifies which files and directories should be excluded from the Docker build context. Similar to .gitignore, it helps reduce build time, image size, and prevents sensitive files from being included in images.",
@@ -120,7 +120,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/build/building/context/#dockerignore",
   },
   {
-    icon: "⚙️",
+    icon: "settings",
     title: "Docker Engine",
     description:
       "Docker Engine is the core runtime that runs containers. It consists of a daemon (dockerd) that manages containers, images, networks, and volumes, and a REST API that allows applications to interact with the daemon.",
@@ -128,7 +128,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/engine/",
   },
   {
-    icon: "💻",
+    icon: "terminal",
     title: "Docker Client",
     description:
       "The Docker Client (docker CLI) is the command-line interface that allows users to interact with Docker Engine. It sends commands to the Docker daemon via the REST API to build, run, and manage containers.",
@@ -136,7 +136,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/engine/reference/commandline/cli/",
   },
   {
-    icon: "🌐",
+    icon: "network",
     title: "Docker Network",
     description:
       "Docker networks enable containers to communicate with each other and with the host. In Compose, services reach each other by name — e.g. the app uses POSTGRES_HOST=db to connect to the database service.",
@@ -145,7 +145,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/network/",
   },
   {
-    icon: "💾",
+    icon: "hard-drive",
     title: "Docker Volume",
     description:
       "Docker volumes are the preferred mechanism for persisting data generated by containers. Volumes are managed by Docker and can be shared between containers, providing data persistence independent of container lifecycle.",
@@ -154,7 +154,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/storage/volumes/",
   },
   {
-    icon: "☁️",
+    icon: "cloud",
     title: "Docker Hub",
     description:
       "Docker Hub is the world's largest container registry, providing a cloud-based repository for Docker images. It allows you to store, share, and pull Docker images, making it easy to distribute applications.",
@@ -162,7 +162,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/docker-hub/",
   },
   {
-    icon: "🏗️",
+    icon: "layers",
     title: "Multi-Stage Build",
     description:
       "Multi-stage builds allow you to use multiple FROM statements in a Dockerfile, enabling you to build in one stage and copy only necessary artifacts to a smaller final image. This significantly reduces image size and improves security.",
@@ -171,7 +171,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     docsLink: "https://docs.docker.com/build/building/multi-stage/",
   },
   {
-    icon: "🚀",
+    icon: "rocket",
     title: "Docker Init",
     description:
       "Docker Init is a command-line tool that helps initialize Docker resources in your project. It automatically generates Dockerfiles, compose files, and .dockerignore files based on your project type, making it easier to get started with Docker.",
@@ -182,7 +182,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
 
 export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
   {
-    icon: "📦",
+    icon: "package",
     category: "Image Commands",
     commands: [
       {
@@ -241,7 +241,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
     ],
   },
   {
-    icon: "🐳",
+    icon: "container",
     category: "Container Commands",
     commands: [
       {
@@ -318,7 +318,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
     ],
   },
   {
-    icon: "💾",
+    icon: "hard-drive",
     category: "Volume Commands",
     commands: [
       {
@@ -360,7 +360,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
     ],
   },
   {
-    icon: "🎼",
+    icon: "workflow",
     category: "Docker Compose Commands",
     commands: [
       {

@@ -5,18 +5,17 @@ import { Footer } from "./index";
 describe("Footer Component", () => {
   it("renders without crashing", () => {
     render(<Footer />);
-    expect(screen.getByText(/Created by/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Node.js Docker Workshop/i).length).toBeGreaterThan(0);
   });
 
-  it("renders the Created by section", () => {
+  it("renders the author name", () => {
     render(<Footer />);
-    expect(screen.getByText("Created by")).toBeInTheDocument();
     expect(screen.getByText("Kristiyan Velkov")).toBeInTheDocument();
   });
 
   it("renders the LinkedIn link correctly", () => {
     render(<Footer />);
-    const linkedinLink = screen.getByText("Kristiyan Velkov");
+    const linkedinLink = screen.getByText("LinkedIn");
     expect(linkedinLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.linkedin);
     expect(linkedinLink.closest("a")).toHaveAttribute("target", "_blank");
     expect(linkedinLink.closest("a")).toHaveAttribute("rel", "noopener noreferrer");
@@ -29,7 +28,7 @@ describe("Footer Component", () => {
 
   it("renders the Newsletter link", () => {
     render(<Footer />);
-    const newsletterLink = screen.getByText(/Frontend World Newsletter/i);
+    const newsletterLink = screen.getByText("Frontend World Newsletter");
     expect(newsletterLink).toBeInTheDocument();
     expect(newsletterLink.closest("a")).toHaveAttribute(
       "href",
@@ -40,7 +39,7 @@ describe("Footer Component", () => {
 
   it("renders the sample app link", () => {
     render(<Footer />);
-    const sampleLink = screen.getByText(/Sample App \(workshop-node-congress\)/i);
+    const sampleLink = screen.getByText("Sample App");
     expect(sampleLink).toBeInTheDocument();
     expect(sampleLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.sampleApp);
     expect(sampleLink.closest("a")).toHaveAttribute("target", "_blank");
@@ -48,62 +47,50 @@ describe("Footer Component", () => {
 
   it("renders the Docker Node.js guide link", () => {
     render(<Footer />);
-    const docsLink = screen.getByText(/Docker Node.js Guide/i);
+    const docsLink = screen.getByText("Docker Node.js Guide");
     expect(docsLink).toBeInTheDocument();
     expect(docsLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.documentation);
     expect(docsLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
-  it("renders the Support section", () => {
+  it("renders the Support links", () => {
     render(<Footer />);
-    expect(screen.getByText("Support")).toBeInTheDocument();
+    expect(screen.getByText("Donate via Stripe")).toBeInTheDocument();
+    expect(screen.getByText("GitHub Sponsors")).toBeInTheDocument();
   });
 
   it("renders the Stripe donation link", () => {
     render(<Footer />);
-    const donateLink = screen.getByText(/Donate via Stripe/i);
-    expect(donateLink).toBeInTheDocument();
+    const donateLink = screen.getByText("Donate via Stripe");
     expect(donateLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.donate);
     expect(donateLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
   it("renders the GitHub Sponsors link", () => {
     render(<Footer />);
-    const sponsorsLink = screen.getByText(/GitHub Sponsors/i);
-    expect(sponsorsLink).toBeInTheDocument();
+    const sponsorsLink = screen.getByText("GitHub Sponsors");
     expect(sponsorsLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.githubSponsors);
     expect(sponsorsLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
   it("renders the copyright text", () => {
     render(<Footer />);
-    expect(
-      screen.getByText(/Node.js Docker Workshop • Node.js Congress 2026 • MIT License/i)
-    ).toBeInTheDocument();
+    expect(screen.getAllByText(/Kristiyan Velkov/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/MIT License/i)).toBeInTheDocument();
   });
 
   it("renders in a grid layout", () => {
     const { container } = render(<Footer />);
-    const grid = container.querySelector(".grid.grid-cols-1.md\\:grid-cols-3");
+    const grid = container.querySelector(".grid.gap-12.lg\\:grid-cols-2");
     expect(grid).toBeInTheDocument();
   });
 
   it("applies correct CSS classes to footer", () => {
     const { container } = render(<Footer />);
     const footer = container.querySelector("footer");
-    expect(footer).toHaveClass("bg-gray-800");
-    expect(footer).toHaveClass("text-white");
-    expect(footer).toHaveClass("py-12");
-  });
-
-  it("renders all section headings with correct styling", () => {
-    const { container } = render(<Footer />);
-    const headings = container.querySelectorAll("h4");
-    expect(headings.length).toBe(3);
-    headings.forEach((heading) => {
-      expect(heading).toHaveClass("text-xl");
-      expect(heading).toHaveClass("font-semibold");
-    });
+    expect(footer).toHaveClass("bg-slate-50");
+    expect(footer).toHaveClass("border-t");
+    expect(footer).toHaveClass("border-slate-200");
   });
 
   it("all external links have correct attributes", () => {
@@ -114,4 +101,3 @@ describe("Footer Component", () => {
     });
   });
 });
-

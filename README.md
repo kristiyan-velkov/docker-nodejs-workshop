@@ -45,9 +45,22 @@ By the end of this workshop, you will:
 - **Testing:** Vitest with coverage
 - **CI/CD:** GitHub Actions + Docker Hub
 
+## Authentication & progress tracking (Supabase)
+
+Participants **sign in** before using the workshop. Progress syncs to Supabase; admins track all tasks and questions.
+
+1. Follow [supabase/README.md](./supabase/README.md) — run the SQL migration and enable Email auth.
+2. Copy `.env.example` → `.env.local` with your Supabase URL and anon key.
+3. After your first sign-up, promote yourself to admin:
+
+```sql
+update public.profiles set role = 'admin' where email = 'you@example.com';
+```
+
 ## Prerequisites
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Supabase](https://supabase.com/) project (for login + progress)
 - [Docker Compose](https://docs.docker.com/compose/) v2+
 - [Node.js](https://nodejs.org/) 24+ (for local dev)
 - [Git](https://git-scm.com/)
