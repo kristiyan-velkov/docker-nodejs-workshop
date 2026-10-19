@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AdminRoute } from "./components/AdminRoute";
-import { AuthGate } from "./components/AuthGate";
 import { AppShell } from "./components/AppShell";
+import { AuthGate } from "./components/AuthGate";
 import { AdminPage } from "./pages/AdminPage";
 import { AskPage } from "./pages/AskPage";
 import { CommandsPage } from "./pages/CommandsPage";

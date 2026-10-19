@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getSupabase } from "../lib/supabase";
 import {
   WORKSHOP_TASK_COUNT,
   WORKSHOP_TASK_LABELS,
 } from "../constants/workshopTasksMeta";
+import { getSupabase } from "../lib/supabase";
 import type { Profile, TaskProgressRow, WorkshopQuestion } from "../types/database";
 
 interface ParticipantRow extends Profile {

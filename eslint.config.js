@@ -52,7 +52,9 @@ export default tseslint.config(
       // React rules
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
+      // Classic hooks rules only; v7 `recommended` adds React Compiler rules that this app does not use
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       

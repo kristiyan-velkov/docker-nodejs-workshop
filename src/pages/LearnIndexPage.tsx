@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
 import {
   BookOpen,
   CheckCircle2,
   ChevronRight,
   Zap,
 } from "lucide-react";
-import { LEARN_REFERENCE_LINKS } from "../constants/navigation";
+import { Link } from "react-router-dom";
+import { AppIcon } from "../components/ui/AppIcon";
 import {
   DIFFICULTY_COLORS,
   LEARN_CATEGORY_ORDER,
   LEARN_COLOR_MAP,
   LEARN_ENTRIES,
 } from "../constants/learn";
-import { AppIcon } from "../components/ui/AppIcon";
+import { LEARN_REFERENCE_LINKS } from "../constants/navigation";
 
 const REFERENCE_COLORS = {
   slate: {

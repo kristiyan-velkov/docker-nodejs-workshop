@@ -1,5 +1,5 @@
-import type { Feature } from "../types";
 import { AppIcon } from "./ui/AppIcon";
+import type { Feature } from "../types";
 
 const ACCENT_COLORS = [
   "bg-blue-500",

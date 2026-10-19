@@ -1,6 +1,6 @@
 import { User } from "lucide-react";
-import { UserProfilePanel } from "../components/UserProfilePanel";
 import { PageShell } from "../components/ui/PageShell";
+import { UserProfilePanel } from "../components/UserProfilePanel";
 
 export const ProfilePage = () => (
   <PageShell

@@ -1,10 +1,10 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { getSupabase } from "../lib/supabase";
 import {
   WORKSHOP_TASK_COUNT,
   WORKSHOP_TASK_LABELS,
 } from "../constants/workshopTasksMeta";
+import { useAuth } from "../contexts/AuthContext";
+import { getSupabase } from "../lib/supabase";
 import type { WorkshopQuestion } from "../types/database";
 
 export const AskQuestionPanel = () => {

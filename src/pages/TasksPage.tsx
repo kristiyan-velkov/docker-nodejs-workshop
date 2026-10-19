@@ -1,7 +1,7 @@
 import { ListChecks } from "lucide-react";
+import { PageShell } from "../components/ui/PageShell";
 import { WorkshopPrizes } from "../components/WorkshopPrizes";
 import { WorkshopTasks } from "../components/WorkshopTasks";
-import { PageShell } from "../components/ui/PageShell";
 
 export const TasksPage = () => (
   <PageShell

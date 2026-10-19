@@ -8,7 +8,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export interface Profile {
+export type Profile = {
   id: string;
   email: string | null;
   full_name: string | null;
@@ -17,7 +17,7 @@ export interface Profile {
   updated_at: string;
 }
 
-export interface TaskProgressRow {
+export type TaskProgressRow = {
   id: string;
   user_id: string;
   task_id: number;
@@ -27,7 +27,7 @@ export interface TaskProgressRow {
   updated_at: string;
 }
 
-export interface WorkshopQuestion {
+export type WorkshopQuestion = {
   id: string;
   user_id: string;
   task_id: number | null;

@@ -11,9 +11,9 @@ import {
   RefreshCw,
   Trophy,
 } from "lucide-react";
-import { useAuth } from "../contexts/AuthContext";
 import { BOOK_PRIZE } from "../constants/bookPrize";
 import { SOCIAL_LINKS } from "../constants/data";
+import { useAuth } from "../contexts/AuthContext";
 import {
   useTaskProgressSync,
   type TimerState,
@@ -551,7 +551,7 @@ export const WorkshopTasks = () => {
   const [expandedTask, setExpandedTask] = useState<number | null>(null);
   const [timers, setTimers] = useState<Record<number, TimerState>>({});
   const { clearRemoteProgress } = useTaskProgressSync(timers, setTimers);
-  const intervalRefs = useRef<Record<number, NodeJS.Timeout>>({});
+  const intervalRefs = useRef<Record<number, ReturnType<typeof setInterval>>>({});
 
   useEffect(() => {
     const currentIntervals = intervalRefs.current;

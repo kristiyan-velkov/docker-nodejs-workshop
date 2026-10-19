@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { ChevronRight, Container, Box } from "lucide-react";
+import { Link } from "react-router-dom";
 import { SOCIAL_LINKS } from "../constants/data";
 
 export const Hero = () => {

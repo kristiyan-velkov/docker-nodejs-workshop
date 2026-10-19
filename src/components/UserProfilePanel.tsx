@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { getSupabase } from "../lib/supabase";
 import {
   WORKSHOP_TASK_COUNT,
   WORKSHOP_TASK_LABELS,
 } from "../constants/workshopTasksMeta";
+import { useAuth } from "../contexts/AuthContext";
+import { getSupabase } from "../lib/supabase";
 import type { TaskProgressRow } from "../types/database";
 
 const formatTime = (seconds: number): string => {
