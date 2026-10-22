@@ -62,7 +62,7 @@ const WORKSHOP_TASKS: Task[] = [
         number: 2,
         title: "Configure environment",
         description:
-          "Copy .env.example to .env. This sets ports, Postgres credentials, and NODE_VERSION=24.16.0-alpine.",
+          "Copy .env.example to .env. This sets ports, Postgres credentials, and NODE_VERSION=24.22.1-alpine.",
         tips: [
           "cp .env.example .env",
           "Review POSTGRES_* and ALLOWED_ORIGINS values",
@@ -146,7 +146,7 @@ const WORKSHOP_TASKS: Task[] = [
           "In the workshop-node-congress root, run docker init. Answer prompts for a Node.js application with a build step.",
         tips: [
           "Select Node as the application platform",
-          "Node.js version: 24.16.0 (match ARG NODE_VERSION)",
+          "Node.js version: 24.22.1 (match ARG NODE_VERSION)",
           "Package manager: npm",
           "Build command: npm run build",
           "Start command: node dist/server.js (not Vite preview)",
@@ -184,7 +184,7 @@ const WORKSHOP_TASKS: Task[] = [
         number: 1,
         title: "Create the builder stage",
         description:
-          "Start with ARG NODE_VERSION=24.16.0-alpine. Stage 1 (builder): copy package.json and package-lock.json, run npm ci, copy source, run npm run build, then npm prune --omit=dev.",
+          "Start with ARG NODE_VERSION=24.22.1-alpine. Stage 1 (builder): copy package.json and package-lock.json, run npm ci, copy source, run npm run build, then npm prune --omit=dev.",
         tips: [
           "Copy package files before source for layer caching",
           "npm ci ensures reproducible installs",
@@ -196,7 +196,7 @@ const WORKSHOP_TASKS: Task[] = [
         title: "Create the runner stage",
         description:
           "Stage 2 (runner): use node:${NODE_VERSION}, set NODE_ENV=production, PORT=3000, HOST=0.0.0.0. Copy pruned node_modules and dist/ from builder with --chown=node:node. Switch to USER node.",
-        code: `ARG NODE_VERSION=24.16.0-alpine
+        code: `ARG NODE_VERSION=24.22.1-alpine
 
 FROM node:\${NODE_VERSION} AS builder
 WORKDIR /app
@@ -293,8 +293,8 @@ compose.yml
         number: 1,
         title: "Create Dockerfile.development",
         description:
-          "Use node:24.16.0-alpine, copy package files, npm ci with cache mount, copy source. Expose ports 3000, 5173, 9229. CMD npm run dev:docker. Do NOT set USER node — Vite needs writable bind mounts.",
-        code: `ARG NODE_VERSION=24.16.0-alpine
+          "Use node:24.22.1-alpine, copy package files, npm ci with cache mount, copy source. Expose ports 3000, 5173, 9229. CMD npm run dev:docker. Do NOT set USER node — Vite needs writable bind mounts.",
+        code: `ARG NODE_VERSION=24.22.1-alpine
 FROM node:\${NODE_VERSION}
 WORKDIR /app
 COPY package.json package-lock.json ./
@@ -363,7 +363,7 @@ CMD ["npm", "run", "dev:docker"]`,
         title: "Create Dockerfile.test",
         description:
           "Full npm ci, chown to node, ENV CI=true, USER node, CMD npm run test:coverage. Add app-test service with profile test.",
-        code: `ARG NODE_VERSION=24.16.0-alpine
+        code: `ARG NODE_VERSION=24.22.1-alpine
 FROM node:\${NODE_VERSION}
 WORKDIR /app
 COPY package.json package-lock.json ./

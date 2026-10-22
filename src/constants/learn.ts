@@ -114,7 +114,7 @@ export const LEARN_ENTRIES: ReadonlyArray<LearnEntry> = [
       "Use ARG for build-time variables (e.g. NODE_VERSION) and ENV for runtime config.",
     ],
     example:
-      "FROM node:24.16.0-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
+      "FROM node:24.22.1-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
     links: [
       {
         title: "Dockerfile reference",

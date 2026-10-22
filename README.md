@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
-[![Node.js](https://img.shields.io/badge/Node.js-24.16.0-339933.svg)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-24.22.1-339933.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue.svg)](https://www.typescriptlang.org/)
 
 Interactive companion UI for the **Node.js Congress 2026 Docker workshop**. This repository guides participants through containerizing a full-stack Node.js todo application with step-by-step tasks, timers, and Docker reference material.
@@ -41,7 +41,7 @@ By the end of this workshop, you will:
 - **Backend:** Express 5, esbuild, TypeScript
 - **Frontend:** React 19, Vite, Tailwind CSS 4
 - **Database:** PostgreSQL 16
-- **Runtime:** Node.js 24.16.0 Alpine
+- **Runtime:** Node.js 24.22.1 Alpine
 - **Testing:** Vitest with coverage
 - **CI/CD:** GitHub Actions + Docker Hub
 

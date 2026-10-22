@@ -92,7 +92,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     description:
       "A Dockerfile is a text file containing instructions for building a Docker image. This workshop uses multi-stage builds: a builder stage compiles the Vite client and esbuild server bundle, then a slim Node runner serves the app.",
     example:
-      "ARG NODE_VERSION=24.16.0-alpine\nFROM node:${NODE_VERSION} AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
+      "ARG NODE_VERSION=24.22.1-alpine\nFROM node:${NODE_VERSION} AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
     docsLink: "https://docs.docker.com/reference/dockerfile/",
   },
   {
@@ -158,7 +158,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     title: "Docker Hub",
     description:
       "Docker Hub is the world's largest container registry, providing a cloud-based repository for Docker images. It allows you to store, share, and pull Docker images, making it easy to distribute applications.",
-    example: "docker pull node:24.16.0-alpine\ndocker push username/todoapp:latest",
+    example: "docker pull node:24.22.1-alpine\ndocker push username/todoapp:latest",
     docsLink: "https://docs.docker.com/docker-hub/",
   },
   {
@@ -167,7 +167,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     description:
       "Multi-stage builds allow you to use multiple FROM statements in a Dockerfile, enabling you to build in one stage and copy only necessary artifacts to a smaller final image. This significantly reduces image size and improves security.",
     example:
-      "FROM node:24.16.0-alpine AS builder\nRUN npm run build\nFROM node:24.16.0-alpine AS runner\nCOPY --from=builder /app/dist ./dist\nUSER node\nENTRYPOINT [\"node\", \"dist/server.js\"]",
+      "FROM node:24.22.1-alpine AS builder\nRUN npm run build\nFROM node:24.22.1-alpine AS runner\nCOPY --from=builder /app/dist ./dist\nUSER node\nENTRYPOINT [\"node\", \"dist/server.js\"]",
     docsLink: "https://docs.docker.com/build/building/multi-stage/",
   },
   {
@@ -216,7 +216,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker pull <image-name>:<tag>",
         description: "Download an image from a registry",
         examples: [
-          "docker pull node:24.16.0-alpine",
+          "docker pull node:24.22.1-alpine",
           "docker pull postgres:16-alpine",
         ],
       },

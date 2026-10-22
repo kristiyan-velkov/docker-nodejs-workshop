@@ -17,7 +17,7 @@ Interactive workshop UI for the Node.js Congress 2026 Docker workshop.
 
 ## Conventions (content must match sample app)
 
-- Node image: `24.16.0-alpine`
+- Node image: `24.22.1-alpine`
 - Compose file: `compose.yml`
 - Services: `app-dev`, `app-prod`, `app-test`, `db`
 - Production: Express serves `dist/client` + API on port 3000 (no NGINX)
