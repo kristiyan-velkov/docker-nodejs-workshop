@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { WorkshopPrizes } from "./WorkshopPrizes";
 import { BOOK_PRIZE } from "../constants/bookPrize";
+import { WorkshopPrizes } from "./WorkshopPrizes";
 
 describe("WorkshopPrizes", () => {
   it("renders book title and prize tiers", () => {

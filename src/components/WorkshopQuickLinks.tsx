@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { HOME_QUICK_LINKS } from "../constants/navigation";
 
 const COLOR_MAP = {

@@ -1,18 +1,18 @@
-import { Link, Navigate, useParams } from "react-router-dom";
 import {
   Check,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
 } from "lucide-react";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { AppIcon } from "../components/ui/AppIcon";
+import { CodeBlock } from "../components/ui/CodeBlock";
 import {
   DIFFICULTY_COLORS,
   LEARN_BY_SLUG,
   LEARN_COLOR_MAP,
   LEARN_ENTRIES,
 } from "../constants/learn";
-import { AppIcon } from "../components/ui/AppIcon";
-import { CodeBlock } from "../components/ui/CodeBlock";
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (

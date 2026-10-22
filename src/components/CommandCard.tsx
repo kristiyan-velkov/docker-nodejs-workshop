@@ -1,6 +1,6 @@
 import { Copy } from "lucide-react";
-import type { DockerCommand } from "../types";
 import { CodeBlock } from "./ui/CodeBlock";
+import type { DockerCommand } from "../types";
 
 interface CommandCardProps {
   command: DockerCommand;

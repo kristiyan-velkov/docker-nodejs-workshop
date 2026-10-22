@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { Container, LogOut, Menu, User, X } from "lucide-react";
-import { useAuth } from "../contexts/AuthContext";
+import { Link, useLocation } from "react-router-dom";
 import { MAIN_NAV } from "../constants/navigation";
+import { useAuth } from "../contexts/AuthContext";
 
 export const UserHeader = () => {
   const { profile, user, isAdmin, signOut } = useAuth();

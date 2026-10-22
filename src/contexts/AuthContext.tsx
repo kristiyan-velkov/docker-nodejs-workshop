@@ -7,9 +7,9 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { Session, User } from "@supabase/supabase-js";
 import { getSupabase, isSupabaseConfigured } from "../lib/supabase";
 import type { Profile } from "../types/database";
+import type { Session, User } from "@supabase/supabase-js";
 
 interface AuthContextValue {
   configured: boolean;

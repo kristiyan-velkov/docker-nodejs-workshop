@@ -1,4 +1,3 @@
-import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
   ClipboardList,
@@ -10,6 +9,7 @@ import {
   User,
   Zap,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export interface NavItem {
   to: string;

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { AuthGate } from "./components/AuthGate";
 import { AppRoutes } from "./App";
+import { AuthGate } from "./components/AuthGate";
 
 function renderApp(initialRoute = "/") {
   return render(
